@@ -6,8 +6,8 @@ import axios from 'axios'
 const InputForm = () => {
 
     const [ questionAmount, setQuestionAmount ] = useState("");
-
-    const [questionCategory, setCategory ] = useState([""]);
+// The categoty state variable needs to be in an array
+    const [questionCategory, setCategory ] = useState([]);
 
     const [ questionDifficulty, setQuestionDifficulty ] = useState("");
 
@@ -27,19 +27,44 @@ const InputForm = () => {
 
     const handleSubmit = event => {
         event.preventDefault();
+
+    // setting the baseline parameters for the axios params object.
+const params = {
+            amount: questionAmount,
+            category: questionCategory,
+            difficulty: questionDifficulty,
+            // type: questionType
+        }
+
+        // function that selectively deletes key/value pairs from the axios params object if the user leaves any of the non-required fields empty. 
+        const deleteParams = () => {
+            if (questionCategory === '') {
+                delete params.category
+            }
+            if (questionDifficulty === '') {
+                delete params.difficulty
+            }
+            // if (typeDropdown.value === '') {
+            //     delete params.type
+            // }
+        }
+
+        deleteParams()
+
         axios({
             url: "https://opentdb.com/api.php",
             method: "GET",
             dataResponse: "json",
-            params: {
-                amount: 9,
-                category: 9,
-                difficulty: "easy"
-            }
-          }).then((response) => {
+            params: params
+
+        }).then((response) => {
             console.log(response);
-          });
-        console.log("submit happened")    
+            console.log(response.data.results)
+        });
+        // console.log(questionAmount)
+        // console.log(questionCategory)
+        // // console.log(questionType)
+        // console.log(questionDifficulty)
     }
 
     return (
@@ -54,6 +79,7 @@ const InputForm = () => {
                 id="numberOFQuestions"
                 onChange={handleAmountChange}
             >
+                <option value="">Select number of questions</option>
                 <option value="5">5</option>
                 <option value="10">10</option>
                 <option value="15">15</option>
@@ -61,11 +87,11 @@ const InputForm = () => {
             </select>
             <label htmlFor="questionDifficulty" className="sr-only">Question Difficulty</label>
             <select 
-                required 
                 name="questionDifficulty" 
                 id="questionDifficulty"
                 onChange={handleDifficultyChange}
             >
+                <option value="">Select difficulty</option>
                 <option value="easy">Easy</option>
                 <option value="medium">Medium</option>
                 <option value="hard">Hard</option>
