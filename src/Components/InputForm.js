@@ -6,8 +6,8 @@ import axios from 'axios'
 const InputForm = () => {
 
     const [ questionAmount, setQuestionAmount ] = useState("");
-// The categoty state variable needs to be in an array
-    const [questionCategory, setCategory ] = useState([]);
+
+    const [questionCategory, setCategory ] = useState("");
 
     const [ questionDifficulty, setQuestionDifficulty ] = useState("");
 
@@ -58,13 +58,9 @@ const params = {
             params: params
 
         }).then((response) => {
-            console.log(response);
-            console.log(response.data.results)
+            // TODO: Catch API response errors here 
         });
-        // console.log(questionAmount)
-        // console.log(questionCategory)
-        // // console.log(questionType)
-        // console.log(questionDifficulty)
+
     }
 
     return (
