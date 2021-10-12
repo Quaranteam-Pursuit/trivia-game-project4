@@ -3,22 +3,23 @@ import CategoryDropdown from './CategoryDropdown';
 import axios from 'axios'
 
 
-const InputForm = () => {
+const InputForm = props => {
+    const { setQuestionArray, setStartNewGame } = props;
 
     const [ questionAmount, setQuestionAmount ] = useState("");
 
-    const [questionCategory, setCategory ] = useState("");
+    const [questionCategory, setQuestionCategory ] = useState("");
 
     const [ questionDifficulty, setQuestionDifficulty ] = useState("");
 
-    const [ questionType, setQuestionType ] = useState("");
+    // const [ questionType, setQuestionType ] = useState("");
     
     const handleAmountChange = event => {
         setQuestionAmount(event.target.value);
     }
 
     const handleCategoryChange = event => {
-        setCategory(event.target.value);
+        setQuestionCategory(event.target.value);
     }
 
     const handleDifficultyChange = event => {
@@ -28,8 +29,8 @@ const InputForm = () => {
     const handleSubmit = event => {
         event.preventDefault();
 
-    // setting the baseline parameters for the axios params object.
-const params = {
+        // setting the baseline parameters for the axios params object.
+        const params = {
             amount: questionAmount,
             category: questionCategory,
             difficulty: questionDifficulty,
@@ -54,11 +55,16 @@ const params = {
         axios({
             url: "https://opentdb.com/api.php",
             method: "GET",
-            dataResponse: "json",
+            dataResponse: "JSON",
             params: params
 
         }).then((response) => {
             // TODO: Catch API response errors here 
+            setQuestionArray(response.data.results);
+            setQuestionCategory(null);
+            setQuestionAmount(null);
+            setQuestionDifficulty(null);
+            setStartNewGame(false);
         });
 
     }
