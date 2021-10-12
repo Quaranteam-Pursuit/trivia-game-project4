@@ -1,9 +1,8 @@
-import StartingPoint from './Components/StartingPoint';
-import Footer from './Components/Footer';
 import './App.css';
-import SavedGames from './Components/SavedGames';
+import { BrowserRouter as Router, Route } from 'react-router-dom';
 
-// Hi everyone
+import Footer from './Components/Footer';
+import InputForm from './Components/InputForm';
 
 function App() {
   return (
@@ -11,8 +10,11 @@ function App() {
        <header>
          <h1>Trivia</h1>
        </header>
-       <StartingPoint/>
-       <SavedGames/>
+       <Router>
+          <Route>
+            <InputForm />
+          </Route>
+       </Router>
        <Footer/>
     </div>
   );
