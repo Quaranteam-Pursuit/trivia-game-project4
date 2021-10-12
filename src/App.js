@@ -4,7 +4,6 @@ import { BrowserRouter as Router, Route } from 'react-router-dom';
 import Footer from './Components/Footer';
 import InputForm from './Components/InputForm';
 
-
 function App() {
   return (
     <div className="App">
