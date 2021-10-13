@@ -168,10 +168,11 @@ const TriviaGame = props => {
                     }
                 </ul>
                 <div>
-                    <button>Save Game</button>
+                    <button className="saveButton">Save Game</button>
                     {
                         validatingAnswer ?
-                            <button 
+                            <button
+                                className="submitButton"
                                 onClick={() => {
                                     setValidatingAnswer(false); // No. 5a
                                     handleValidation(userChoice); // No. 6b - User selection is passed on validation method

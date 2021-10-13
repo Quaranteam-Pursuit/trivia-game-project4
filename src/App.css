@@ -58,10 +58,17 @@ html {
 
 /* General Styling */
 
-body{ background-image: linear-gradient(to right, #051937, #004d7a, #008793, #00bf72);
-  text-align: center;
-  color: white;
+h1 {
   font-family: 'Merienda One', cursive;
+  color: #9BD694; 
+}
+
+body{ 
+  /* background-image: linear-gradient(to right, #AFEDFF, #FFB0C6, #9BD694); */
+
+  text-align: center;
+  color: black;
+  font-family: 'Barlow', sans-serif;
 }
 
 
@@ -80,4 +87,97 @@ body{ background-image: linear-gradient(to right, #051937, #004d7a, #008793, #00
   display: flex;
   justify-content: space-evenly;
   align-items: center;
+}
+
+
+/* Landing page styling */
+select {
+  border-radius: 25px;
+  padding: 1rem;
+  margin-bottom: 1rem;
+  text-align: center;
+  background-color: #AFEDFF;
+  border: 1px solid #FFB0C6;
+  font-family: 'Barlow', sans-serif;
+}
+
+legend {
+  text-align: left;
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+}
+
+form {
+  display: flex;
+  flex-direction: column;
+}
+
+button {
+  margin-top: 1rem;
+  background-color: #9BD694;
+  padding: 1rem;
+  font-family: 'Barlow', sans-serif;
+  -webkit-box-shadow: 4px 1px 28px 12px rgba(255,176,198,0.66); 
+  box-shadow: 4px 1px 28px 12px rgba(255,176,198,0.66);
+  border: 1px solid #9BD694;
+}
+
+button:hover, button:focus {
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
+  transition: all 1s;
+  background: #FFB0C6;
+}
+
+option {
+  font-family: 'Barlow', sans-serif;
+}
+
+/* Result styling */
+.saveButton {
+  margin-right: 1.5rem;
+}
+
+.submitButton {
+  margin-bottom: 2rem;
+}
+
+li, p, label {
+  margin-bottom: 1rem;
+}
+
+.resultHeader {
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid #FFB0C6;
+  height: 50px;
+  margin-bottom: 2rem;
+  padding: 1rem 0.5rem 2.5rem 0.5rem;
+}
+
+ul {
+  text-align: left;
+  -webkit-box-shadow: 1px 1px 4px 14px rgba(175,237,255,0.66); 
+  box-shadow: 1px 1px 4px 14px rgba(175,237,255,0.66);
+  padding: 1rem 0rem 1rem 0rem;
+}
+
+span {
+  margin-right: 1rem;
+}
+
+li {
+  margin-left: 1rem;
+}
+
+ul, .questionText {
+  margin-bottom: 2rem;
+}
+
+.questionText {
+  color: #9BD694;
+}
+
+.questionDifficulty {
+  text-transform: capitalize;
 }
