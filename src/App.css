@@ -62,14 +62,17 @@ h1 {
   font-family: 'Merienda One', cursive;
   color: #9BD694; 
   margin-bottom: 2rem;
+  margin-top: 1rem;
 }
 
 body{ 
-  /* background-image: linear-gradient(to right, #AFEDFF, #FFB0C6, #9BD694); */
-
   text-align: center;
   color: black;
   font-family: 'Barlow', sans-serif;
+}
+
+main {
+  margin-bottom: 1.5rem;
 }
 
 
