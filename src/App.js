@@ -13,7 +13,7 @@ function App() {
     <div className="App">
       <Router>
         <header>
-         <h1>Trivia</h1>
+         <h1>Quarantine Pursuit!</h1>
         </header>
           <main>
             {

@@ -1,6 +1,7 @@
 import { useState } from 'react';
 import CategoryDropdown from './CategoryDropdown';
 import axios from 'axios'
+// import ErrorHandler from './ErrorHandler';
 
 
 const InputForm = props => {
@@ -13,6 +14,9 @@ const InputForm = props => {
     const [ questionDifficulty, setQuestionDifficulty ] = useState("");
 
     // const [ questionType, setQuestionType ] = useState("");
+
+    // State to hold the response status for API error handling. Default value is null so that the errors can print to page when the value is anything other than null. 
+    const [apiResError, setApiResError] = useState(null)
     
     const handleAmountChange = event => {
         setQuestionAmount(event.target.value);
@@ -59,52 +63,74 @@ const InputForm = props => {
             params: params
 
         }).then((response) => {
-            // TODO: Catch API response errors here 
+        // Catch API network errors and throw to error message - OR proceed with sending form data to state
+            if (response.status < 200 && response.status < 299) {
+                throw Error('error message')
+            }
             setQuestionArray(response.data.results);
             setQuestionCategory(null);
             setQuestionAmount(null);
             setQuestionDifficulty(null);
             setStartNewGame(false);
+        })
+        .catch(error => {
+            // Setting error state value so error protocol runs in JSX
+            setApiResError(error.message)
         });
 
     }
-
-    return (
-        <form onSubmit={handleSubmit}>
-            <CategoryDropdown
+    if (apiResError) {
+        return(
+            <div>
+                <CategoryDropdown
                 handleCategoryChange={handleCategoryChange}
-            />
-            <label htmlFor="numberOFQuestions" className="sr-only">Question Amounts</label>
-            <select 
-                required 
-                name="numberOFQuestions" 
-                id="numberOFQuestions"
-                onChange={handleAmountChange}
-            >
-                <option value="">Select number of questions</option>
-                <option value="5">5</option>
-                <option value="10">10</option>
-                <option value="15">15</option>
-                <option value="20">20</option>
-            </select>
-            <label htmlFor="questionDifficulty" className="sr-only">Question Difficulty</label>
-            <select 
-                name="questionDifficulty" 
-                id="questionDifficulty"
-                onChange={handleDifficultyChange}
-            >
-                <option value="">Select difficulty</option>
-                <option value="easy">Easy</option>
-                <option value="medium">Medium</option>
-                <option value="hard">Hard</option>
-            </select>
-            {/* <label htmlFor="questionType" className="sr-only">Question Type</label>
-            <select require name="questionType" id="questionType">
+                apiResError={apiResError}
+                setApiResError={setApiResError}
+                />
+            </div>
+        )
+    }
+
+    if (apiResError === null) {
+        return (
+            <form onSubmit={handleSubmit}>
+                <CategoryDropdown
+                    handleCategoryChange={handleCategoryChange}
+                    apiResError={apiResError}
+                    setApiResError={setApiResError}
+                    />
+                <label htmlFor="numberOFQuestions" className="sr-only">Question Amounts</label>
+                <select 
+                    required 
+                    name="numberOFQuestions" 
+                    id="numberOFQuestions"
+                    onChange={handleAmountChange}
+                    >
+                    <option value="">Select number of questions</option>
+                    <option value="5">5</option>
+                    <option value="10">10</option>
+                    <option value="15">15</option>
+                    <option value="20">20</option>
+                </select>
+                <label htmlFor="questionDifficulty" className="sr-only">Question Difficulty</label>
+                <select 
+                    name="questionDifficulty" 
+                    id="questionDifficulty"
+                    onChange={handleDifficultyChange}
+                    >
+                    <option value="">Select difficulty</option>
+                    <option value="easy">Easy</option>
+                    <option value="medium">Medium</option>
+                    <option value="hard">Hard</option>
+                </select>
+                {/* <label htmlFor="questionType" className="sr-only">Question Type</label>
+                <select require name="questionType" id="questionType">
                 <option value="multiple">Multiple Choice</option>
-            </select> */}
-            <button type="submit">Submit</button>
-        </form>
-    )
+                </select> */}
+                <button type="submit">Submit</button>
+            </form>
+        )
+    }
 }
 
 export default InputForm;
