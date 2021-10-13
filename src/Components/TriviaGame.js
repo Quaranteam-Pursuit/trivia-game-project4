@@ -168,7 +168,7 @@ const TriviaGame = props => {
                     }
                 </ul>
                 <div>
-                    <button>Save Game</button>
+                    <button className="saveButton">Save Game</button>
                     {
                         validatingAnswer ?
                             <button 
