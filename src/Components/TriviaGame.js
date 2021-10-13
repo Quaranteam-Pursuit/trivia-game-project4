@@ -123,25 +123,27 @@ const TriviaGame = props => {
     
     return (
         <div className="gameInterface">
-            <div className="wrapper">       
-                <div className="questionCategory">
-                    <p>{category}</p>
-                </div>
-                <div className="questionDifficulty">
-                    <p>{difficulty}</p>
-                </div>
-                <div className="visualFeedback">
-                    {
-                        answeredCorrectly === null ?
-                            <></> :
-                            answeredCorrectly ?
-                            <FaCheckCircle /> :
-                            <FaTimesCircle />
-                    }
-                </div>
-                <div className="currentPosition">
-                    <p>{userPosition}/{gameLength}</p>
-                    <span className="answerHistory"></span>
+            <div className="wrapper">
+                <div className="resultHeader">
+                    <div className="questionCategory">
+                        <p>{category}</p>
+                    </div>
+                    <div className="questionDifficulty">
+                        <p>Difficulty: {difficulty}</p>
+                    </div>
+                    <div className="visualFeedback">
+                        {
+                            answeredCorrectly === null ?
+                                <></> :
+                                answeredCorrectly ?
+                                <FaCheckCircle /> :
+                                <FaTimesCircle />
+                        }
+                    </div>
+                    <div className="currentPosition">
+                        <p>Question: {userPosition}/{gameLength}</p>
+                        <span className="answerHistory"></span>
+                    </div>
                 </div>
                 <div className="questionText">
                     <p>{question}</p>
@@ -171,7 +173,8 @@ const TriviaGame = props => {
                     <button className="saveButton">Save Game</button>
                     {
                         validatingAnswer ?
-                            <button 
+                            <button
+                                className="submitButton"
                                 onClick={() => {
                                     setValidatingAnswer(false);
                                     handleValidation(userChoice);

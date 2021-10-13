@@ -71,10 +71,13 @@ const InputForm = props => {
 
     return (
         <form onSubmit={handleSubmit}>
+            <legend>Choose Game Play</legend>
+            <label>Category Menu</label>
             <CategoryDropdown
                 handleCategoryChange={handleCategoryChange}
             />
             <label htmlFor="numberOFQuestions" className="sr-only">Question Amounts</label>
+            <label>Number of Questions</label>
             <select 
                 required 
                 name="numberOFQuestions" 
@@ -88,6 +91,7 @@ const InputForm = props => {
                 <option value="20">20</option>
             </select>
             <label htmlFor="questionDifficulty" className="sr-only">Question Difficulty</label>
+            <label>Difficulty</label>
             <select 
                 name="questionDifficulty" 
                 id="questionDifficulty"
@@ -102,7 +106,7 @@ const InputForm = props => {
             <select require name="questionType" id="questionType">
                 <option value="multiple">Multiple Choice</option>
             </select> */}
-            <button type="submit">Submit</button>
+            <button type="submit">Play Trivia</button>
         </form>
     )
 }

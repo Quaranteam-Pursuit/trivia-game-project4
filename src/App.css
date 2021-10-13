@@ -60,11 +60,14 @@ html {
 
 h1 {
   font-family: 'Merienda One', cursive;
+  color: #9BD694; 
 }
 
-body{ background-image: linear-gradient(to right, #AFEDFF, #FFB0C6, #9BD694);
+body{ 
+  /* background-image: linear-gradient(to right, #AFEDFF, #FFB0C6, #9BD694); */
+
   text-align: center;
-  color: white;
+  color: black;
   font-family: 'Barlow', sans-serif;
 }
 
@@ -98,6 +101,12 @@ select {
   font-family: 'Barlow', sans-serif;
 }
 
+legend {
+  text-align: left;
+  font-size: 1.5rem;
+  margin-bottom: 2rem;
+}
+
 form {
   display: flex;
   flex-direction: column;
@@ -108,8 +117,8 @@ button {
   background-color: #9BD694;
   padding: 1rem;
   font-family: 'Barlow', sans-serif;
-  -webkit-box-shadow: 4px 1px 28px 26px rgba(255,176,198,0.64); 
-  box-shadow: 4px 1px 28px 26px rgba(255,176,198,0.64);
+  -webkit-box-shadow: 4px 1px 28px 12px rgba(255,176,198,0.66); 
+  box-shadow: 4px 1px 28px 12px rgba(255,176,198,0.66);
   border: 1px solid #9BD694;
 }
 
@@ -129,6 +138,46 @@ option {
   margin-right: 1.5rem;
 }
 
-ul, li, p {
+.submitButton {
+  margin-bottom: 2rem;
+}
+
+li, p, label {
   margin-bottom: 1rem;
+}
+
+.resultHeader {
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid #FFB0C6;
+  height: 50px;
+  margin-bottom: 2rem;
+  padding: 1rem 0.5rem 2.5rem 0.5rem;
+}
+
+ul {
+  text-align: left;
+  -webkit-box-shadow: 1px 1px 4px 14px rgba(175,237,255,0.66); 
+  box-shadow: 1px 1px 4px 14px rgba(175,237,255,0.66);
+  padding: 1rem 0rem 1rem 0rem;
+}
+
+span {
+  margin-right: 1rem;
+}
+
+li {
+  margin-left: 1rem;
+}
+
+ul, .questionText {
+  margin-bottom: 2rem;
+}
+
+.questionText {
+  color: #9BD694;
+}
+
+.questionDifficulty {
+  text-transform: capitalize;
 }
