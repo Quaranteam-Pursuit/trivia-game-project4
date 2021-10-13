@@ -123,25 +123,27 @@ const TriviaGame = props => {
     
     return (
         <div className="gameInterface">
-            <div className="wrapper">       
-                <div className="questionCategory">
-                    <p>{category}</p> {/* No. 3b */}
-                </div>
-                <div className="questionDifficulty">
-                    <p>{difficulty}</p> {/* No. 3b */}
-                </div>
-                <div className="visualFeedback">
-                    {
-                        answeredCorrectly === null ? // No. 6e - Depending on whether stored value is true or false...
-                            <></> :
-                            answeredCorrectly ?
-                            <FaCheckCircle /> : // No. 6f - Render positive feedback
-                            <FaTimesCircle /> // No. 6f - Render negative feedback
-                    }
-                </div>
-                <div className="currentPosition">
-                    <p>{userPosition}/{gameLength}</p>
-                    <span className="answerHistory"></span>
+            <div className="wrapper">
+                <div className="resultHeader">
+                    <div className="questionCategory">
+                        <p>{category}</p> {/* No. 3b */}
+                    </div>
+                    <div className="questionDifficulty">
+                        <p>Difficulty: {difficulty}</p> {/* No. 3b */}
+                    </div>
+                    <div className="visualFeedback">
+                        {
+                            answeredCorrectly === null ? // No. 6e - Depending on whether stored value is true or false...
+                                <></> :
+                                answeredCorrectly ?
+                                <FaCheckCircle /> : // No. 6f - Render positive feedback
+                                <FaTimesCircle /> // No. 6f - Render negative feedback
+                        }
+                    </div>
+                    <div className="currentPosition">
+                        <p>Question: {userPosition}/{gameLength}</p>
+                        <span className="answerHistory"></span>
+                    </div>
                 </div>
                 <div className="questionText">
                     <p>{question}</p> {/* No. 3b */}

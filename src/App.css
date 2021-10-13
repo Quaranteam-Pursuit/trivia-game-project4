@@ -61,6 +61,7 @@ html {
 h1 {
   font-family: 'Merienda One', cursive;
   color: #9BD694; 
+  margin-bottom: 2rem;
 }
 
 body{ 
@@ -152,7 +153,7 @@ li, p, label {
   border: 1px solid #FFB0C6;
   height: 50px;
   margin-bottom: 2rem;
-  padding: 1rem 0.5rem 2.5rem 0.5rem;
+  padding: 1rem 0.5rem 3rem 0.5rem;
 }
 
 ul {
