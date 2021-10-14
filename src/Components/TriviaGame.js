@@ -3,9 +3,6 @@ import { FaCheckCircle, FaTimesCircle, FaRegCircle } from 'react-icons/fa';
 import firebase from '../firebase';
 import { getDatabase, ref, push } from 'firebase/database'; 
 
-import firebase from '../firebase.js';
-import { getDatabase, ref, push } from 'firebase/database';
-
 const TriviaGame = props => {
     //creating reference to firebase realtime database
     const database = getDatabase(firebase);
