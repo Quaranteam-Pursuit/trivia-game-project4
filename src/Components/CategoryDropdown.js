@@ -26,8 +26,6 @@ const CategoryDropdown = props => {
         })
     },[] );
             
-        {/* Checks the api error state variable for a value other than null, and prints error text if an error is present. */}
-        // { apiResError && <div className="errorMessage"><p>We can't reach the Open Trivia API right now.</p><p>Please refresh the page or wait a few minutes.</p></div>}
         if (apiResError) {
             return (
                 <div className="errorMessage"><p>We can't reach the Open Trivia API right now.</p><p>Please refresh the page or wait a few minutes.</p></div>
