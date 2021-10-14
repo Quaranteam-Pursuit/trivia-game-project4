@@ -4,7 +4,7 @@ import axios from 'axios'
 // import ErrorHandler from './ErrorHandler';
 
 const InputForm = props => {
-    const { setQuestionArray, setStartNewGame, setGameSaved } = props;
+    const { setQuestionArray, setStartNewGame } = props;
 
     const [ questionAmount, setQuestionAmount ] = useState("");
 
