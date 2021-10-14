@@ -1,7 +1,15 @@
-import { useState } from 'react';
+import {  useState } from 'react';
 import { FaCheckCircle, FaTimesCircle, FaRegCircle } from 'react-icons/fa';
 
+import firebase from '../firebase.js';
+import { getDatabase, ref, push } from 'firebase/database';
+
 const TriviaGame = props => {
+    //creating reference to firebase realtime database
+    const database = getDatabase(firebase);
+    const dbRef = ref(database);  
+    // Pass the array of question objects as a prop from the parent component
+
     // No.1 - Pass the array of question objects as a prop from the parent component
     const { questionArray } = props;
     
@@ -22,6 +30,9 @@ const TriviaGame = props => {
 
     // Store an integer that corresponds to the length of the questions array
     const [ gameLength ] = useState(questionArray.length); // No. 7b - Store the length of question array to indicate to user the game's length
+
+    //state to know whether the game has been saved
+    const [gameIsSavedStatus,SetGameIsSavedStatus] = useState(false)
 
     // No. 3a - Destructure the current question to access all the data that will change with each question
     const { category, correct_answer, difficulty, incorrect_answers, question } = currentQuestion; // Destructure current question
@@ -105,6 +116,7 @@ const TriviaGame = props => {
         shuffleOptions(correct_answer, incorrect_answers);
     }
 
+
     // No. 4b - Sets the user choice state variable to the last selected option
     const handleSelection = event => {
         const currentSelection = event.target.textContent;
@@ -120,7 +132,12 @@ const TriviaGame = props => {
             setAnsweredCorrectly(false); // No. 6e - Temporarily store whether they answered incorrectly
         }
     }
-    
+    // save the games to firebase only one time and hide the button after the save happened
+    const HandleGameSave = () => {
+        push(dbRef,questionArray)
+        SetGameIsSavedStatus(true)   
+    }
+
     return (
         <div className="gameInterface">
             <div className="wrapper">
@@ -157,6 +174,8 @@ const TriviaGame = props => {
                                     <li 
                                         key={index}
                                         id={index}
+
+                                        //removing onclick as this is shuffling the rendered answer
                                         onClick={event => handleSelection(event)} // No. 4b - Called on click
                                     >   
                                         <span className="iconContainer">
@@ -170,7 +189,11 @@ const TriviaGame = props => {
                     }
                 </ul>
                 <div>
-                    <button className="saveButton">Save Game</button>
+                    {
+                       !gameIsSavedStatus ?
+                       <button onClick={HandleGameSave}>Save Game</button> :
+                       null
+                    }
                     {
                         validatingAnswer ?
                             <button

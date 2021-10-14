@@ -84,15 +84,6 @@ main {
   height: 100vh;
 }
 
-.card{
-  width: 50%;
-  height: 30%;
-  background-color: lightblue;
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-}
-
 
 /* Landing page styling */
 select {
