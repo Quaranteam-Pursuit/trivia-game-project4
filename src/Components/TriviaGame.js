@@ -98,7 +98,7 @@ const TriviaGame = props => {
         if (positionIndex < gameLength) {
             setUserPosition(positionIndex + 1);
         }
-
+        console.log(userPosition)
     }
     
     // Immediately call shuffle function to automatically sort the answers once the question array populates with values 
@@ -213,7 +213,8 @@ const TriviaGame = props => {
                                         incrementPosition();
                                     }}
                                 >Submit Answer</button> :
-                                <button
+                            
+                                    <button
                                     // Each time the button is clicked a new question object will be stored into state to access and render its contents to the page 
                                     onClick={() => {
                                         handleCurrentQuestion(questionArray);
@@ -221,6 +222,8 @@ const TriviaGame = props => {
                                         setAnsweredCorrectly(null);
                                     }}
                                 >Reveal Question {userPosition}</button>
+                                
+                                
                         }
                     </div>
                 </div>
