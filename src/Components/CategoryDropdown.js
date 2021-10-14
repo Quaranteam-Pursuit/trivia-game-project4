@@ -24,7 +24,7 @@ const CategoryDropdown = props => {
             setApiResError(error.message)
             console.log(error.message)
         })
-    },[] );
+    },[setApiResError] );
             
         if (apiResError) {
             return (
