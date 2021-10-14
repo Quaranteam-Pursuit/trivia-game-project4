@@ -176,3 +176,63 @@ ul, .questionText {
 .questionDifficulty {
   text-transform: capitalize;
 }
+
+.allAnswers {
+  margin: 0 auto;
+}
+.answerOptions {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  width: 300px;
+  margin: 0 auto;
+}
+.answerInput {
+  visibility: hidden;
+  position: absolute;
+}
+
+.answerLabel {
+  display: block;
+  position: relative;
+  cursor: pointer;
+  transition: all 0.25s linear;
+  -webkit-transition: all 0.25s linear;
+}
+
+.answerLabel > div {
+  margin: 0 auto;
+}
+
+.answerContainer {
+  position: relative;
+  text-align: left;
+}
+
+.answerInput:hover .radioBox {
+  border: 5px solid #fff;
+}
+
+.answerLabel::before {
+  display: block;
+  position: absolute;
+	content: '';
+  border-radius: 100%;
+  height: 15px;
+  width: 15px;
+  top: 6px;
+	left: -25px;
+  margin: auto;
+  background-color: #aaa;
+	transition: background 0.25s linear;
+	-webkit-transition: background 0.25s linear;
+}
+
+.answerInput:checked ~ .answerLabel::before {
+  background-color: #00bf72;
+}
+
+.answerInput:checked ~ label {
+  color: #008793;
+}
+
