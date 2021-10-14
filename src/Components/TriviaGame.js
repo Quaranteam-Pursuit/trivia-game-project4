@@ -152,12 +152,6 @@ const TriviaGame = props => {
         }
     }
 
-      // save the games to firebase only one time and hide the button after the save happened
-    const handleGameSave = () => {
-        push(dbRef,questionArray)
-        SetGameIsSavedStatus(true)   
-    }
-
     if (gameLaunched === false) {
         return (
             <div className="launchInterface">
