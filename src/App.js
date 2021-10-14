@@ -31,7 +31,7 @@ function App() {
           </Route>
           <Route  exact path='/'>
               {
-                startNewGame && !loadingGame ?
+                startNewGame && (loadingGame === false) ?
                   <InputForm 
                     setQuestionArray={setQuestionArray}
                     setStartNewGame={setStartNewGame}
@@ -44,8 +44,6 @@ function App() {
                   />
               }
           </Route>
-          {/* <Route path='/savedgame/:gameID'>           
-          </Route> */}
         </main>
         <Footer/>
       </Router>
