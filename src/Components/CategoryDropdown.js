@@ -14,7 +14,6 @@ const CategoryDropdown = props => {
         axios({
             url: 'https://opentdb.com/api_category.php',
         }).then( (res) => {
-            // TODO: Catch API response errors here
             setCategories(res.data.trivia_categories)
         })
     },[] );
@@ -41,4 +40,4 @@ const CategoryDropdown = props => {
     )
 }
 
-export default CategoryDropdown
+export default CategoryDropdown;

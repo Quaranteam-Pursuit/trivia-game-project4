@@ -17,7 +17,7 @@ function App() {
     <div className="App">
       <Router>
         <header>
-        <h1>Quarantine Pursuit</h1>
+          <h1>Quarantine Pursuit</h1>
         </header>
         <main>
           <Link to='/SavedGames'>Saved Games</Link>

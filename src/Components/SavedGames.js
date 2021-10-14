@@ -2,11 +2,11 @@ import firebase from '../firebase.js';
 import { getDatabase, ref, onValue } from 'firebase/database';
 import { useState,useEffect } from 'react';
 import { Link } from 'react-router-dom';
-// import TriviaGame from './TriviaGame.js';
 
 const SavedGames = (props) => {
-    const [showGames, setShowGames] = useState([]);
     const { setLoadingGame, setSavedQuestions, setStartNewGame } = props;
+    
+    const [showGames, setShowGames] = useState([]);
 
     useEffect(()=>{ 
         const database = getDatabase(firebase);
@@ -26,11 +26,11 @@ const SavedGames = (props) => {
             setShowGames(arrayOfQuestionsInFirebase)
         })
     },[])
-// filters the arrayofquestionsfromfiorebase based on the id of the component is clicked. 
+    
+    // Filters the arrayofquestionsfromfiorebase based on the id of the component is clicked. 
     const handleFilter = (savedGameId) => {
         const selectedGameArray = showGames.filter(game => game.key === savedGameId);
         setSavedQuestions(selectedGameArray[0].questions)
-        console.log(selectedGameArray[0].questions);
         setLoadingGame(true);
         setStartNewGame(false);
     }
@@ -50,7 +50,7 @@ const SavedGames = (props) => {
                                         handleFilter(individualGame.key);
                                     }}
                                 >
-                                    Savedgame :{individualGame.key}
+                                    Savedgame: {individualGame.key}
                                 </button>
                             </li> 
                         </>
@@ -66,6 +66,3 @@ const SavedGames = (props) => {
 }
 
 export default SavedGames;
-
-
-// we need to pass the setquestions array when the button is clicked. 

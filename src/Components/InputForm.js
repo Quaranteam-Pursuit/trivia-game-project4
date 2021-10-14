@@ -58,8 +58,7 @@ const InputForm = props => {
             dataResponse: "JSON",
             params: params
 
-        }).then((response) => {
-            // TODO: Catch API response errors here 
+        }).then((response) => { 
             setQuestionArray(response.data.results);
             setQuestionCategory(null);
             setQuestionAmount(null);
@@ -76,19 +75,25 @@ const InputForm = props => {
             <CategoryDropdown
                 handleCategoryChange={handleCategoryChange}
             />
-            <label htmlFor="numberOFQuestions" className="sr-only">Question Amounts</label>
+            <label htmlFor="numberOfQuestions" className="sr-only">Question Amounts</label>
             <label>Number of Questions</label>
             <select 
                 required 
-                name="numberOFQuestions" 
-                id="numberOFQuestions"
+                name="numberOfQuestions" 
+                id="numberOfQuestions"
                 onChange={handleAmountChange}
             >
-                <option value="">Select number of questions</option>
+                <option value="null">Please select a question amount</option>
                 <option value="5">5</option>
                 <option value="10">10</option>
                 <option value="15">15</option>
                 <option value="20">20</option>
+                <option value="10">25</option>
+                <option value="15">30</option>
+                <option value="20">35</option>
+                <option value="10">40</option>
+                <option value="15">45</option>
+                <option value="20">50</option>
             </select>
             <label htmlFor="questionDifficulty" className="sr-only">Question Difficulty</label>
             <label>Difficulty</label>
