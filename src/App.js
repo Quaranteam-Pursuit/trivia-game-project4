@@ -1,11 +1,10 @@
 import './App.css';
 import { useState } from 'react';
-import { BrowserRouter as Router, Route, Link } from 'react-router-dom';
-
-import InputForm from './Components/InputForm';
-import TriviaGame from './Components/TriviaGame';
-import Footer from './Components/Footer';
-import SavedGames from './Components/SavedGames'
+import { BrowserRouter as Router, Route,Link } from 'react-router-dom';
+import InputForm from './components/InputForm';
+import TriviaGame from './components/TriviaGame';
+import Footer from './components/Footer';
+import SavedGames from './components/SavedGames'
 
 function App() {
   const [ startNewGame, setStartNewGame ] = useState(true);
@@ -14,17 +13,26 @@ function App() {
   const [ savedQuestions, setSavedQuestions ] = useState([]);
   const [ loadingGame, setLoadingGame ] = useState(false);
 
+  const handleReturn = () => {
+    setLoadingGame(false);
+    setStartNewGame(true);
+  }
 
   return (
     <Router>
       <div className="App">
         <header>
-          <Link to="/">
-            <h1>Quarantine Pursuit</h1>
-          </Link>
+          <h1>Quarantine Pursuit</h1>
+          <nav>
+            <Link 
+              to='/'
+              onClick={handleReturn}
+            >Home</Link>
+            <Link to='/SavedGames'>Saved Games</Link>
+            <Link to='/'>Play</Link>
+          </nav>
         </header>
         <main>
-          <Link to='/SavedGames'>Saved Games</Link>
           <Route path="/savedgames">
             <SavedGames
               setSavedQuestions={setSavedQuestions}

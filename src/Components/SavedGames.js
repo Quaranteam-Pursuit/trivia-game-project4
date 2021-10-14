@@ -1,7 +1,6 @@
 import firebase from '../firebase.js';
 import { getDatabase, ref, onValue } from 'firebase/database';
 import { useState,useEffect } from 'react';
-import { Link } from 'react-router-dom';
 
 const SavedGames = (props) => {
     const { setLoadingGame, setSavedQuestions, setStartNewGame } = props;
@@ -31,39 +30,32 @@ const SavedGames = (props) => {
     const handleFilter = (savedGameId) => {
         const selectedGameArray = showGames.filter(game => game.key === savedGameId);
         setSavedQuestions(selectedGameArray[0].questions)
-
         setLoadingGame(true);
         setStartNewGame(false);
     }
     
     return(
-        <>
-            <ul>
-                {
-                    showGames.map((individualGame, index)=>{
-                    return(
-                        <>
-                            <li 
-                                id={individualGame.key}>
-                                <button
-                                    key={index}
-                                    onClick={() =>{
-                                        handleFilter(individualGame.key);
-                                    }}
-                                >
-                                    Savedgame: {individualGame.key}
-                                </button>
-                            </li> 
-                        </>
-                    )
-                    })
-                }
-            </ul>
-            <Link exact to="/">
-                <p>Home</p>
-            </Link>
-        </>
-
+        <ul>
+            {
+                showGames.map((individualGame, index)=>{
+                return(
+                    <>
+                        <li 
+                            id={individualGame.key}>
+                            <button
+                                key={index}
+                                onClick={() =>{
+                                    handleFilter(individualGame.key);
+                                }}
+                            >
+                                Savedgame: {individualGame.key}
+                            </button>
+                        </li> 
+                    </>
+                )
+                })
+            }
+        </ul>
     )
 }
 
