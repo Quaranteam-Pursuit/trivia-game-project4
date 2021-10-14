@@ -10,7 +10,7 @@ const TriviaGame = props => {
     // Pass the array of question objects as a prop from the parent component
 
     // No.1 - Pass the array of question objects as a prop from the parent component
-    const { gameSaved, questionArray, setGameSaved } = props;
+    const { questionArray, setGameSaved } = props;
     
     // No. 2e - Store one question at a time from the array of questions to render for to the interface for the user to interact with
     const [ currentQuestion, setCurrentQuestion ] = useState({}); 
