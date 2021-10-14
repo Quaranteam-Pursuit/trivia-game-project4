@@ -233,7 +233,11 @@ const TriviaGame = props => {
                             </div>
                         </form>
                         <div>
-                            <button>Save Game</button>
+                            {
+                           !gameIsSavedStatus ?
+                           <button onClick={HandleGameSave}>Save Game</button> :
+                           null
+                            }
                             {
                                 validatingAnswer 
                                     ? <button 
