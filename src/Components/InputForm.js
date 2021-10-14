@@ -4,7 +4,7 @@ import axios from 'axios'
 
 
 const InputForm = props => {
-    const { setQuestionArray, setStartNewGame } = props;
+    const { setQuestionArray, setStartNewGame, setGameSave } = props;
 
     const [ questionAmount, setQuestionAmount ] = useState("");
 
@@ -106,7 +106,10 @@ const InputForm = props => {
             <select require name="questionType" id="questionType">
                 <option value="multiple">Multiple Choice</option>
             </select> */}
-            <button type="submit">Play Trivia</button>
+            <button 
+                type="submit"
+                onClick={setGameSave(false)}
+            >Play Trivia</button>
         </form>
     )
 }
