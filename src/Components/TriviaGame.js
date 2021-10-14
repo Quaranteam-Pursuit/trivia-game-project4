@@ -30,9 +30,6 @@ const TriviaGame = props => {
     // Store an integer that corresponds to the length of the questions array
     const [ gameLength ] = useState(questionArray.length); // No. 7b - Store the length of question array to indicate to user the game's length
 
-    //state to know whether the game has been saved
-    const [gameIsSavedStatus,SetGameIsSavedStatus] = useState(false)
-
     // No. 3a - Destructure the current question to access all the data that will change with each question
     const { category, correct_answer, difficulty, incorrect_answers, question } = currentQuestion; // Destructure current question
 
