@@ -1,11 +1,12 @@
 import firebase from '../firebase.js';
 import { getDatabase, ref, onValue } from 'firebase/database';
 import { useState,useEffect } from 'react';
-// import TriviaGame from './TriviaGame.js';
+import { Link } from 'react-router-dom';
 
 const SavedGames = (props) => {
-    const [showGames, setShowGames] = useState([]);
     const { setLoadingGame, setSavedQuestions, setStartNewGame } = props;
+    
+    const [showGames, setShowGames] = useState([]);
 
     useEffect(()=>{ 
         const database = getDatabase(firebase);
@@ -25,36 +26,45 @@ const SavedGames = (props) => {
             setShowGames(arrayOfQuestionsInFirebase)
         })
     },[])
-// filters the arrayofquestionsfromfiorebase based on the id of the component is clicked. 
+    
+    // Filters the arrayofquestionsfromfiorebase based on the id of the component is clicked. 
     const handleFilter = (savedGameId) => {
         const selectedGameArray = showGames.filter(game => game.key === savedGameId);
-        setSavedQuestions(selectedGameArray)
+        setSavedQuestions(selectedGameArray[0].questions)
+
         setLoadingGame(true);
         setStartNewGame(false);
     }
     
     return(
-        <ul>
-            {
-                showGames.map((individualGame)=>{
-                return(
-                    <>
-                    <li key={individualGame.key}>
-                        <button onClick={() =>{
-                        handleFilter(individualGame.key);
-                    }}>Savedgame :{individualGame.key}</button>
-                    </li>
-                   
+        <>
+            <ul>
+                {
+                    showGames.map((individualGame, index)=>{
+                    return(
+                        <>
+                            <li 
+                                id={individualGame.key}>
+                                <button
+                                    key={index}
+                                    onClick={() =>{
+                                        handleFilter(individualGame.key);
+                                    }}
+                                >
+                                    Savedgame: {individualGame.key}
+                                </button>
+                            </li> 
+                        </>
+                    )
+                    })
+                }
+            </ul>
+            <Link exact to="/">
+                <p>Home</p>
+            </Link>
+        </>
 
-                    </>
-                   )
-                })
-            }
-        </ul>
     )
 }
 
 export default SavedGames;
-
-
-// we need to pass the setquestions array when the button is clicked. 

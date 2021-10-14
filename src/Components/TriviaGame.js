@@ -1,5 +1,7 @@
 import {  useState } from 'react';
 import { FaCheckCircle, FaTimesCircle, FaRegCircle } from 'react-icons/fa';
+import firebase from '../firebase';
+import { getDatabase, ref, push } from 'firebase/database'; 
 
 import firebase from '../firebase.js';
 import { getDatabase, ref, push } from 'firebase/database';
@@ -11,7 +13,11 @@ const TriviaGame = props => {
     // Pass the array of question objects as a prop from the parent component
 
     // No.1 - Pass the array of question objects as a prop from the parent component
-    const { questionArray } = props;
+    const { gameSaved, questionArray, setGameSaved } = props;
+
+    // Creating a reference to the realtime database
+    const database = getDatabase(firebase);
+    const dbRef = ref(database);
     
     // No. 2e - Store one question at a time from the array of questions to render for to the interface for the user to interact with
     const [ currentQuestion, setCurrentQuestion ] = useState({}); 
@@ -126,10 +132,17 @@ const TriviaGame = props => {
     const handleValidation = userChoice => {
         if (userChoice === `${correct_answer}`) { // No. 6d - Compare user's selection with destructured correct answer value
             setAnsweredCorrectly(true);  // No. 6e - Temporarily store whether they answered correctly 
+
         } 
         if (userChoice !== `${correct_answer}`) { // No. 6d - Compare user's selection with destructured correct answer value
             setAnsweredCorrectly(false); // No. 6e - Temporarily store whether they answered incorrectly
         }
+    }
+    
+        // save the games to firebase only one time and hide the button after the save happened
+    const handleGameSave = () => {
+        push(dbRef, questionArray);
+        setGameSaved(true);   
     }
 
     const [gameLaunched, setGameLaunched] = useState(false)

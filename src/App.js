@@ -10,49 +10,48 @@ import SavedGames from './Components/SavedGames'
 function App() {
   const [ startNewGame, setStartNewGame ] = useState(true);
   const [ questionArray, setQuestionArray ] = useState([]);
-  // const [startSavedGame, setStartSavedGame] =useState(false)
+  const [ gameSaved, setGameSaved ] = useState(false);
   const [ savedQuestions, setSavedQuestions ] = useState([]);
   const [ loadingGame, setLoadingGame ] = useState(false);
 
-  console.log(questionArray)
-  console.log(savedQuestions)
 
   return (
-    <div className="App">
-      <Router>
+    <Router>
+      <div className="App">
         <header>
-          <h1>Quarantine Pursuit</h1>
+          <Link to="/">
+            <h1>Quarantine Pursuit</h1>
+          </Link>
         </header>
-        <Link to='/SavedGames'>Saved Games</Link>
-        <Route path="/savedgames">
-          <SavedGames
-            setSavedQuestions={setSavedQuestions}
-            setLoadingGame={setLoadingGame}
-            setStartNewGame={setStartNewGame}
-            savedQuestions={savedQuestions}
-          />
-        </Route>
-        <Route  exact path='/'>
-          <main>
-            {
-              startNewGame ?
-              <InputForm 
-              setQuestionArray={setQuestionArray}
+        <main>
+          <Link to='/SavedGames'>Saved Games</Link>
+          <Route path="/savedgames">
+            <SavedGames
+              setSavedQuestions={setSavedQuestions}
+              setLoadingGame={setLoadingGame}
               setStartNewGame={setStartNewGame}
-
-              /> :
-              <TriviaGame 
-              questionArray={loadingGame ? undefined : questionArray}
-              />
-            }
-          </main>
-        </Route>
-        <Route path='/savedgame/:gameID'>
-            
-        </Route>
+              savedQuestions={savedQuestions}
+            />
+          </Route>
+          <Route exact path='/'>
+              {
+                startNewGame && (loadingGame === false) ?
+                  <InputForm 
+                    setQuestionArray={setQuestionArray}
+                    setStartNewGame={setStartNewGame}
+                    setGameSaved={setGameSaved}
+                  /> :
+                  <TriviaGame 
+                    gameSaved={gameSaved}
+                    questionArray={loadingGame ? savedQuestions : questionArray}
+                    setGameSaved={setGameSaved}
+                  />
+              }
+          </Route>
+        </main>
         <Footer/>
-      </Router>
-    </div>
+      </div>
+    </Router>
   );
 }
 

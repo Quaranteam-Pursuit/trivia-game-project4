@@ -3,9 +3,8 @@ import CategoryDropdown from './CategoryDropdown';
 import axios from 'axios'
 // import ErrorHandler from './ErrorHandler';
 
-
 const InputForm = props => {
-    const { setQuestionArray, setStartNewGame } = props;
+    const { setQuestionArray, setStartNewGame, setGameSaved } = props;
 
     const [ questionAmount, setQuestionAmount ] = useState("");
 
@@ -99,11 +98,11 @@ const InputForm = props => {
                     apiResError={apiResError}
                     setApiResError={setApiResError}
                     />
-                <label htmlFor="numberOFQuestions" className="sr-only">Question Amounts</label>
+                <label htmlFor="numberOfQuestions" className="sr-only">Question Amounts</label>
                 <select 
                     required 
-                    name="numberOFQuestions" 
-                    id="numberOFQuestions"
+                    name="numberOfQuestions" 
+                    id="numberOfQuestions"
                     onChange={handleAmountChange}
                     >
                     <option value="">Select number of questions</option>
@@ -111,6 +110,12 @@ const InputForm = props => {
                     <option value="10">10</option>
                     <option value="15">15</option>
                     <option value="20">20</option>
+                    <option value="25">25</option>
+                    <option value="30">30</option>
+                    <option value="35">35</option>
+                    <option value="40">40</option>
+                    <option value="45">45</option>
+                    <option value="50">50</option>
                 </select>
                 <label htmlFor="questionDifficulty" className="sr-only">Question Difficulty</label>
                 <select 
