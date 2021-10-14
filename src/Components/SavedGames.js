@@ -31,6 +31,7 @@ const SavedGames = (props) => {
     const handleFilter = (savedGameId) => {
         const selectedGameArray = showGames.filter(game => game.key === savedGameId);
         setSavedQuestions(selectedGameArray[0].questions)
+
         setLoadingGame(true);
         setStartNewGame(false);
     }
@@ -62,6 +63,7 @@ const SavedGames = (props) => {
                 <p>Home</p>
             </Link>
         </>
+
     )
 }
 

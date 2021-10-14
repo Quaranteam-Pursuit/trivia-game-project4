@@ -3,7 +3,15 @@ import { FaCheckCircle, FaTimesCircle, FaRegCircle } from 'react-icons/fa';
 import firebase from '../firebase';
 import { getDatabase, ref, push } from 'firebase/database'; 
 
+import firebase from '../firebase.js';
+import { getDatabase, ref, push } from 'firebase/database';
+
 const TriviaGame = props => {
+    //creating reference to firebase realtime database
+    const database = getDatabase(firebase);
+    const dbRef = ref(database);  
+    // Pass the array of question objects as a prop from the parent component
+
     // No.1 - Pass the array of question objects as a prop from the parent component
     const { gameSaved, questionArray, setGameSaved } = props;
 
@@ -28,6 +36,9 @@ const TriviaGame = props => {
 
     // Store an integer that corresponds to the length of the questions array
     const [ gameLength ] = useState(questionArray.length); // No. 7b - Store the length of question array to indicate to user the game's length
+
+    //state to know whether the game has been saved
+    const [gameIsSavedStatus,SetGameIsSavedStatus] = useState(false)
 
     // No. 3a - Destructure the current question to access all the data that will change with each question
     const { category, correct_answer, difficulty, incorrect_answers, question } = currentQuestion; // Destructure current question
@@ -102,7 +113,6 @@ const TriviaGame = props => {
         if (positionIndex < gameLength) {
             setUserPosition(positionIndex + 1); // No. 7d - Update their position in state 
         }
-
     }
     
     // Immediately call shuffle function to automatically sort the answers once the question array populates with values 
@@ -110,6 +120,7 @@ const TriviaGame = props => {
         // Encountered a bug where the answers would be randomly sorted with each button click, now it hides all answer after submitting
         shuffleOptions(correct_answer, incorrect_answers);
     }
+
 
     // No. 4b - Sets the user choice state variable to the last selected option
     const handleSelection = event => {
@@ -127,89 +138,141 @@ const TriviaGame = props => {
             setAnsweredCorrectly(false); // No. 6e - Temporarily store whether they answered incorrectly
         }
     }
-    // save the games to firebase only one time and hide the button after the save happened
+    
+        // save the games to firebase only one time and hide the button after the save happened
     const handleGameSave = () => {
         push(dbRef, questionArray);
         setGameSaved(true);   
     }
 
-    return (
-        <div className="gameInterface">
-            <div className="wrapper">
-                <div className="resultHeader">
-                    <div className="questionCategory">
-                        <p>{category}</p> {/* No. 3b */}
+    const [gameLaunched, setGameLaunched] = useState(false)
+
+    const launchHander = () => {
+        setGameLaunched(true)
+    }
+
+    const [gameFinished, setGameFinished] = useState(false)
+
+    const endGameHandler = () => {
+        if (questionArray.length === 0) {
+            setGameFinished(true)
+        }
+    }
+
+      // save the games to firebase only one time and hide the button after the save happened
+    const HandleGameSave = () => {
+        push(dbRef,questionArray)
+        SetGameIsSavedStatus(true)   
+    }
+
+    if (gameLaunched === false) {
+        return (
+            <div className="launchInterface">
+                <p>We found {questionArray.length} questions that match your search!</p>
+                <button onClick={launchHander}>Launch game!</button>
+            </div>
+        )
+    }
+
+    if (gameLaunched) {
+        return (
+            <div className="gameInterface">
+                <div className="wrapper">
+                    <div className="resultHeader">
+                        <div className="questionCategory">
+                            <p>{category}</p>
+                        </div>
+                        <div className="questionDifficulty">
+                            <p>{difficulty}</p>
+                        </div>
+                        <div className="visualFeedback">
+                            {
+                                answeredCorrectly === null ?
+                                    <></> :
+                                    answeredCorrectly ?
+                                    <FaCheckCircle /> :
+                                    <FaTimesCircle />
+                            }
+                        </div>
+                        <div className="currentPosition">
+                            <p>Question {userPosition}/{gameLength}</p>
+                            <span className="answerHistory"></span>
+                        </div>
+                        <div className="questionText">
+                            <p>{question}</p>
+                        </div> 
+                        <form className="answerForm">
+                            <div className="allAnswers">
+                                {
+                                    myComponent.randomizedOrder !== undefined ?
+                                        // Map through all of the multiple choice answers after they have been randomly order and create an li element for each
+                                        myComponent.randomizedOrder.map((value, index) => {
+                                            return (
+                                                <div
+                                                    key={index}
+                                                    className="answerContainer"
+                                                >
+                                                    {/* <span className="iconContainer">
+                                                        <FaRegCircle />
+                                                    </span> */}
+                                                    <input
+                                                        type="radio"
+                                                        className="answerInput"
+                                                        id={index}
+                                                        name="answerOption"
+                                                        onClick={event => handleSelection(event)}
+                                                    >   
+                                                    </input>
+                                                    <label
+                                                        htmlFor={index}
+                                                        className="answerLabel"
+                                                        tabIndex="0"
+                                                    >
+                                                        {value}
+                                                    </label>
+                                                    {/* <div className="radioBox">
+                                                    </div> */}
+                                                </div>
+                                            )
+                                        }) :
+                                        null
+                                }
+                            </div>
+                        </form>
+                        <div>
+                            <button>Save Game</button>
+                            {
+                                validatingAnswer 
+                                    ? <button 
+                                        onClick={() => {
+                                            setValidatingAnswer(false);
+                                            handleValidation(userChoice);
+                                            incrementPosition();
+                                            endGameHandler();
+                                        }}
+                                    >Submit Answer</button> 
+                                    : gameFinished
+                                    ? <button 
+                                    >
+                                    Finish game!
+                                    </button> 
+                                    : <button
+                                        // Each time the button is clicked a new question object will be stored into state to access and render its contents to the page 
+                                        onClick={() => {
+                                            handleCurrentQuestion(questionArray);
+                                            setValidatingAnswer(true);
+                                            setAnsweredCorrectly(null);
+                                        }}
+                                    >Reveal Question {userPosition}</button>
+                                    
+                                    
+                            }
+                        </div>
                     </div>
-                    <div className="questionDifficulty">
-                        <p>Difficulty: {difficulty}</p> {/* No. 3b */}
-                    </div>
-                    <div className="visualFeedback">
-                        {
-                            answeredCorrectly === null ? // No. 6e - Depending on whether stored value is true or false...
-                                <></> :
-                                answeredCorrectly ?
-                                <FaCheckCircle /> : // No. 6f - Render positive feedback
-                                <FaTimesCircle /> // No. 6f - Render negative feedback
-                        }
-                    </div>
-                    <div className="currentPosition">
-                        <p>Question: {userPosition}/{gameLength}</p>
-                        <span className="answerHistory"></span>
-                    </div>
-                </div>
-                <div className="questionText">
-                    <p>{question}</p> {/* No. 3b */}
-                </div> 
-                <ul>
-                    {
-                        myComponent.randomizedOrder !== undefined ? // No. 4a 
-                            // Map through all of the multiple choice answers after they have been randomly order and create an li element for each
-                            myComponent.randomizedOrder.map((value, index) => {
-                                return (
-                                    <li 
-                                        key={index}
-                                        id={index}
-                                        onClick={event => handleSelection(event)} // No. 4b - Called on click
-                                    >   
-                                        <span className="iconContainer">
-                                            <FaRegCircle />
-                                        </span>
-                                        {value}
-                                    </li>
-                                )
-                            }) :
-                            null
-                    }
-                </ul>
-                <div>
-                    {
-                       !gameSaved ?
-                       <button onClick={handleGameSave}>Save Game</button> :
-                       null
-                    }
-                    {
-                        validatingAnswer ?
-                            <button
-                                className="submitButton"
-                                onClick={() => {
-                                    setValidatingAnswer(false); // No. 5a
-                                    handleValidation(userChoice); // No. 6b - User selection is passed on validation method
-                                    incrementPosition(); // No. 7a - After user submits increment a counter that tracks their position
-                                }}
-                            >Submit Answer</button> :
-                            <button
-                                // Each time the button is clicked a new question object will be stored into state to access and render its contents to the page 
-                                onClick={() => {
-                                    handleCurrentQuestion(questionArray); //No. 2a - Called
-                                    setValidatingAnswer(true); // No. 5a
-                                    setAnsweredCorrectly(null); // No. 6a - Resets answeredCorrectly to null before the next question is rendered
-                                }}
-                            >Reveal Question</button>
-                    }
                 </div>
             </div>
-        </div>
-    )
+        )
+    }
 }
 
 export default TriviaGame;
