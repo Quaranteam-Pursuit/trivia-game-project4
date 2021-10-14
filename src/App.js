@@ -1,6 +1,6 @@
 import './App.css';
 import { useState } from 'react';
-import { BrowserRouter as Router, Route } from 'react-router-dom';
+import { BrowserRouter as Router } from 'react-router-dom';
 import InputForm from './Components/InputForm';
 import TriviaGame from './Components/TriviaGame';
 import Footer from './Components/Footer';
@@ -13,7 +13,7 @@ function App() {
     <div className="App">
       <Router>
         <header>
-         <h1>Quarantine Pursuit!</h1>
+        <h1>Quarantine Pursuit</h1>
         </header>
           <main>
             {
