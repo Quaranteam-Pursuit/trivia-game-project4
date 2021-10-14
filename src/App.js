@@ -1,23 +1,25 @@
 import './App.css';
 import { useState } from 'react';
 import { BrowserRouter as Router, Route,Link } from 'react-router-dom';
-import InputForm from './Components/InputForm';
-import TriviaGame from './Components/TriviaGame';
-import Footer from './Components/Footer';
-import SavedGames from './Components/SavedGames'
+import InputForm from './components/InputForm';
+import TriviaGame from './components/TriviaGame';
+import Footer from './components/Footer';
+import SavedGames from './components/SavedGames'
 
 function App() {
   const [ startNewGame, setStartNewGame ] = useState(true);
   const [ questionArray, setQuestionArray ] = useState([]);
-  const [ gameSaved, setGameSave ] = useState(false);
+  const [ gameSaved, setGameSaved ] = useState(false);
   const [ savedQuestions, setSavedQuestions ] = useState([]);
   const [ loadingGame, setLoadingGame ] = useState(false);
 
   return (
-    <div className="App">
-      <Router>
+    <Router>
+      <div className="App">
         <header>
-          <h1>Quarantine Pursuit</h1>
+          <Link to="/">
+            <h1>Quarantine Pursuit</h1>
+          </Link>
         </header>
         <main>
           <Link to='/SavedGames'>Saved Games</Link>
@@ -29,25 +31,25 @@ function App() {
               savedQuestions={savedQuestions}
             />
           </Route>
-          <Route  exact path='/'>
+          <Route exact path='/'>
               {
                 startNewGame && (loadingGame === false) ?
                   <InputForm 
                     setQuestionArray={setQuestionArray}
                     setStartNewGame={setStartNewGame}
-                    setGameSave={setGameSave}
+                    setGameSaved={setGameSaved}
                   /> :
                   <TriviaGame 
                     gameSaved={gameSaved}
                     questionArray={loadingGame ? savedQuestions : questionArray}
-                    setGameSave={setGameSave}
+                    setGameSaved={setGameSaved}
                   />
               }
           </Route>
         </main>
         <Footer/>
-      </Router>
-    </div>
+      </div>
+    </Router>
   );
 }
 

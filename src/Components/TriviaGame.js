@@ -5,7 +5,7 @@ import { getDatabase, ref, push } from 'firebase/database';
 
 const TriviaGame = props => {
     // No.1 - Pass the array of question objects as a prop from the parent component
-    const { gameSaved, questionArray, setGameSave } = props;
+    const { gameSaved, questionArray, setGameSaved } = props;
 
     // Creating a reference to the realtime database
     const database = getDatabase(firebase);
@@ -130,7 +130,7 @@ const TriviaGame = props => {
     // save the games to firebase only one time and hide the button after the save happened
     const handleGameSave = () => {
         push(dbRef, questionArray);
-        setGameSave(true);   
+        setGameSaved(true);   
     }
 
     return (

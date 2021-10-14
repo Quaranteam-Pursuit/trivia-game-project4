@@ -2,9 +2,8 @@ import { useState } from 'react';
 import CategoryDropdown from './CategoryDropdown';
 import axios from 'axios'
 
-
 const InputForm = props => {
-    const { setQuestionArray, setStartNewGame, setGameSave } = props;
+    const { setQuestionArray, setStartNewGame, setGameSaved } = props;
 
     const [ questionAmount, setQuestionAmount ] = useState("");
 
@@ -83,7 +82,7 @@ const InputForm = props => {
                 id="numberOfQuestions"
                 onChange={handleAmountChange}
             >
-                <option value="null">Please select a question amount</option>
+                <option value="">Please select a question amount</option>
                 <option value="5">5</option>
                 <option value="10">10</option>
                 <option value="15">15</option>
@@ -102,7 +101,7 @@ const InputForm = props => {
                 id="questionDifficulty"
                 onChange={handleDifficultyChange}
             >
-                <option value="">Select difficulty</option>
+                <option value="">Select a difficulty</option>
                 <option value="easy">Easy</option>
                 <option value="medium">Medium</option>
                 <option value="hard">Hard</option>
@@ -113,7 +112,7 @@ const InputForm = props => {
             </select> */}
             <button 
                 type="submit"
-                onClick={setGameSave(false)}
+                onClick={setGameSaved(false)}
             >Play Trivia</button>
         </form>
     )
