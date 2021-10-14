@@ -11,10 +11,6 @@ const TriviaGame = props => {
 
     // No.1 - Pass the array of question objects as a prop from the parent component
     const { gameSaved, questionArray, setGameSaved } = props;
-
-    // Creating a reference to the realtime database
-    const database = getDatabase(firebase);
-    const dbRef = ref(database);
     
     // No. 2e - Store one question at a time from the array of questions to render for to the interface for the user to interact with
     const [ currentQuestion, setCurrentQuestion ] = useState({}); 
