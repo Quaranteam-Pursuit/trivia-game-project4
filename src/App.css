@@ -84,15 +84,6 @@ main {
   height: 100vh;
 }
 
-.card{
-  width: 50%;
-  height: 30%;
-  background-color: lightblue;
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-}
-
 
 /* Landing page styling */
 select {
@@ -186,15 +177,6 @@ ul, .questionText {
   text-transform: capitalize;
 }
 
-.card{
-  width: 50%;
-  height: 30%;
-  background-color: lightblue;
-  display: flex;
-  justify-content: space-evenly;
-  align-items: center;
-}
-
 .allAnswers {
   margin: 0 auto;
 }
@@ -253,3 +235,4 @@ ul, .questionText {
 .answerInput:checked ~ label {
   color: #008793;
 }
+
