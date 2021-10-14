@@ -1,5 +1,5 @@
 import {  useState } from 'react';
-import { FaCheckCircle, FaTimesCircle, FaRegCircle } from 'react-icons/fa';
+import { FaCheckCircle, FaTimesCircle } from 'react-icons/fa';
 import firebase from '../firebase';
 import { getDatabase, ref, push } from 'firebase/database'; 
 
