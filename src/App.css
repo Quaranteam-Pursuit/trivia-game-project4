@@ -187,8 +187,13 @@ ul, .questionText {
   margin: 0 auto;
 }
 .answerInput {
-  visibility: hidden;
-  position: absolute;
+  opacity: 0;
+  position: absolute; 
+}
+
+.answerInput:focus + label::before {
+  box-shadow: 0 0px 8px var(--brandPrimary);
+  border: 5px solid black;
 }
 
 .answerLabel {
@@ -227,6 +232,8 @@ ul, .questionText {
 	-webkit-transition: background 0.25s linear;
 }
 
+
+
 .answerInput:checked ~ .answerLabel::before {
   background-color: #00bf72;
 }
@@ -235,3 +242,6 @@ ul, .questionText {
   color: #008793;
 }
 
+fieldset {
+  border: none;
+}

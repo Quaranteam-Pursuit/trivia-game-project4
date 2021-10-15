@@ -1,4 +1,4 @@
-import {  useState } from 'react';
+import {  useState, useEffect, useCallback } from 'react';
 import { FaCheckCircle, FaTimesCircle } from 'react-icons/fa';
 import firebase from '../firebase';
 import { getDatabase, ref, push } from 'firebase/database'; 
@@ -10,14 +10,14 @@ const TriviaGame = props => {
     const dbRef = ref(database);  
 
     // Pass the array of question objects as a prop from the parent component
-    const { questionArray, setGameSaved, gameSaved } = props;
+        const { questionArray, setGameSaved, gameSaved } = props;
     
     // Store one question at a time from the array of questions to render for to the interface for the user to interact with
     const [ currentQuestion, setCurrentQuestion ] = useState({}); 
 
     // Store a boolean value that determines whether the application validates a selected answer or reveals the next question
     const [ validatingAnswer, setValidatingAnswer ] = useState(false);
-
+    
     // Store a string value that reflects the most recent selection by the user
     const [ userChoice, setUserChoice ] = useState("");
 
@@ -26,7 +26,7 @@ const TriviaGame = props => {
 
     // Store an integer that corresponds to the user's current position in the array of questions
     const [ userPosition, setUserPosition ] = useState(1);
-
+    
     // Store an integer that corresponds to the length of the questions array
     const [ gameLength ] = useState(questionArray.length);
 
@@ -68,7 +68,7 @@ const TriviaGame = props => {
     }
 
     // Receives an array then creates a copy that on average has all the options occupying a different index then before
-    const randomizeOrder = array => { 
+    const randomizeOrder = useCallback((array) => {
         let initialOrder = array.slice();
         let randomOrder = [];
 
@@ -81,19 +81,29 @@ const TriviaGame = props => {
         }
 
         return randomOrder;
-    }
+    },
+    [],
+    )
+
 
     // Shuffles the correct answer amongs the incorrect answers and returns a order with randomly assorted values
-    const shuffleOptions = (correctAnswer, incorrectAnswers) => { // No. 2b - Pass current the question's answers to shuffleOptions
+    const shuffleOptions = useCallback(
+        (correctAnswer, incorrectAnswers) => { // No. 2b - Pass current the question's answers to shuffleOptions
 
         // If the array of incorrect answers is undefined this conditional logic won't run, preventing the application from breaking
         if (incorrect_answers !== undefined) {
             const initialOrder = [...incorrectAnswers, correctAnswer];
             const randomOrder = randomizeOrder(initialOrder); // No. 3c - Randomize order of answers
-            myComponent.randomizedOrder = randomOrder; //No. 3g - Store answers after being randomized  
+            setOrderedQuestions(randomOrder)//No. 3g - Store answers after being randomized  
         }
 
-    }
+    },
+    [incorrect_answers, randomizeOrder],
+    )
+    
+    useEffect(()=>{ 
+        shuffleOptions(correct_answer, incorrect_answers)
+    },[correct_answer, incorrect_answers, shuffleOptions])
 
     // Increments the value in the userPosition state variable each time the user answers a question regardless of whether its correct
     const incrementPosition = () => { 
@@ -104,32 +114,29 @@ const TriviaGame = props => {
             setUserPosition(positionIndex + 1); 
         }
     }
-    
-    // Immediately call shuffle function to automatically sort the answers once the question array populates with values 
-    if (validatingAnswer) {
-        // Encountered a bug where the answers would be randomly sorted with each button click, now it hides all answer after submitting
-        shuffleOptions(correct_answer, incorrect_answers);
-    }
-
 
     // Sets the user choice state variable to the last selected option
     const handleSelection = event => {
-        const currentSelection = event.target.textContent;
-        setUserChoice(currentSelection); 
+        const currentSelection = event.target.value;
+        setUserChoice(currentSelection); // No. 4c - Stores user's current selected answer
     }
 
-    // Compares the value of the targeted element with the correct answer value from the question object
+    const[numOfCorrectAnswers, setNumOfCorrectAnswers] =useState(0);
+
+     // Compares the value of the targeted element with the correct answer value from the question object
     const handleValidation = userChoice => {
         if (userChoice === `${correct_answer}`) { 
-            setAnsweredCorrectly(true); 
-
+            setAnsweredCorrectly(true)  
+            setNumOfCorrectAnswers(numOfCorrectAnswers+1)
         } 
         if (userChoice !== `${correct_answer}`) { 
             setAnsweredCorrectly(false); 
+           
         }
     }
-    
+
     // Pushes remaining questions to the realtime database thereby saving games for the user to continue later
+
     const handleGameSave = () => {
         push(dbRef, questionArray);
         setGameSaved(true);   
@@ -148,6 +155,7 @@ const TriviaGame = props => {
     const endGameHandler = () => {
         if (questionArray.length === 0) {
             setGameFinished(true)
+            
         }
     }
 
@@ -178,8 +186,8 @@ const TriviaGame = props => {
                                 <></> :
                                     // Conditionally renders different visual feedback to the user depending on whether they select the correct answer or an incorrect answer
                                     answeredCorrectly ?
-                                    <FaCheckCircle /> :
-                                    <FaTimesCircle />
+                                    <FaCheckCircle/> :
+                                    <FaTimesCircle/>
                             }
                         </div>
                         <div className="currentPosition">
@@ -187,14 +195,14 @@ const TriviaGame = props => {
                             <span className="answerHistory"></span>
                         </div>
                         <div className="questionText">
-                            <p>{question}</p>
+                            <p dangerouslySetInnerHTML={{__html: question}}></p>
                         </div> 
                         <form className="answerForm">
-                            <div className="allAnswers">
+                            <fieldset className="allAnswers">
                                 {
-                                    myComponent.randomizedOrder !== undefined ?
+                                    orderedQuestions !== undefined ?
                                         // Map through all of the multiple choice answers after they have been randomly order and create an li element for each
-                                        myComponent.randomizedOrder.map((value, index) => {
+                                        orderedQuestions.map((value, index) => {
                                             return (
                                                 <div
                                                     key={index}
@@ -205,13 +213,14 @@ const TriviaGame = props => {
                                                         className="answerInput"
                                                         id={index}
                                                         name="answerOption"
-                                                        onClick={event => handleSelection(event)}
+                                                        value={value}
+                                                        checked={userChoice === value}
+                                                        onChange={event => handleSelection(event)}
                                                     >   
                                                     </input>
                                                     <label
                                                         htmlFor={index}
                                                         className="answerLabel"
-                                                        tabIndex="0"
                                                     >
                                                         {value}
                                                     </label>
@@ -220,14 +229,14 @@ const TriviaGame = props => {
                                         }) :
                                         null
                                 }
-                            </div>
+                            </fieldset>
                         </form>
                         <div>
                             {
                             // Toggles whether the save button is rendered to the page, hiding it if they have saved their game
-                           !gameSaved ?
-                           <button onClick={handleGameSave}>Save Game</button> :
-                           null
+                            !gameSaved ?
+                            <button onClick={handleGameSave}>Save Game</button> :
+                            null
                             }
                             {
                                 // Conditionally renders a different button to the page depending on the boolean value stored within the validatingAnswer state value
@@ -238,21 +247,26 @@ const TriviaGame = props => {
                                             handleValidation(userChoice);
                                             incrementPosition();
                                             endGameHandler();
+                                           
                                         }}
                                     >Submit Answer</button> 
                                     : gameFinished
-                                    ? <button> Finish game! </button> 
+
+                                    ? <button onClick={()=> {
+                                        alert(` you got ${numOfCorrectAnswers} correct answers`)
+                                    }
+                                    }>Finish game!</button> 
                                     : <button
                                         // Each time the button is clicked a new question object will be stored into state to access and render its contents to the page 
                                         onClick={() => {
                                             handleCurrentQuestion(questionArray);
                                             setValidatingAnswer(true);
                                             setAnsweredCorrectly(null);
+                                            shuffleOptions(correct_answer, incorrect_answers);
+                                            setUserChoice(null)
                                         }}
                                     >Reveal Question {userPosition}</button>
-                                    
-                                    
-                            }
+                                }
                         </div>
                     </div>
                 </div>
