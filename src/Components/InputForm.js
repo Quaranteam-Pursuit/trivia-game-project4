@@ -87,12 +87,6 @@ const InputForm = props => {
         return (
             <form onSubmit={handleSubmit}>
                 <legend>Choose Game Play</legend> 
-                <label>Category Menu</label>
-                <CategoryDropdown
-                    handleCategoryChange={handleCategoryChange}
-                    apiResError={apiResError}
-                    setApiResError={setApiResError}
-                    />
                 <label>Number of Questions</label>
                 <select 
                     required 
@@ -112,6 +106,7 @@ const InputForm = props => {
                     <option value="45">45</option>
                     <option value="50">50</option>
                 </select>
+                <label>Category Menu</label>
                 <CategoryDropdown
                     handleCategoryChange={handleCategoryChange}
                     apiResError={apiResError}
