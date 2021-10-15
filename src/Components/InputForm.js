@@ -86,7 +86,7 @@ const InputForm = props => {
     if (apiResError === null) {
         return (
             <form onSubmit={handleSubmit}>
-                <legend>Choose Game Play</legend> 
+                <legend>Create a Game</legend> 
                 <label>Number of Questions</label>
                 <select 
                     required 
