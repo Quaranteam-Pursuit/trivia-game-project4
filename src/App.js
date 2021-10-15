@@ -21,16 +21,27 @@ function App() {
 
   return (
     <Router>
-      <div className="App">
+      <div className="app">
         <header>
+          <Link
+          to='/'
+          onClick={handleReturn}>
           <h1>Quarantine Pursuit</h1>
+          </Link>
           <nav>
             <Link 
               to='/'
               onClick={handleReturn}
+              className="navLinks"
             >Home</Link>
-            <Link to='/SavedGames'>Saved Games</Link>
-            <Link to='/'>Play</Link>
+            <Link 
+            to='/SavedGames'
+            className="navLinks"
+            >Saved Games</Link>
+            <Link 
+            to='/'
+            className="navLinks"
+            >Play</Link>
           </nav>
         </header>
         <main>
