@@ -1,15 +1,18 @@
 import { useState } from 'react';
 import CategoryDropdown from './CategoryDropdown';
 import axios from 'axios'
-// import ErrorHandler from './ErrorHandler';
 
 const InputForm = props => {
+    // Destructure two methods that will set the state value to an array of questions from the API and begin the game by setting startNewGame to false
     const { setQuestionArray, setStartNewGame } = props;
 
+    // Watches the current value of the question amount dropdown.
     const [ questionAmount, setQuestionAmount ] = useState("");
 
+    // Watches the current value of the question category dropdown.
     const [questionCategory, setQuestionCategory ] = useState("");
 
+    // Watches the current value of the question difficulty dropdown.
     const [ questionDifficulty, setQuestionDifficulty ] = useState("");
 
     // const [ questionType, setQuestionType ] = useState("");
@@ -17,22 +20,25 @@ const InputForm = props => {
     // State to hold the response status for API error handling. Default value is null so that the errors can print to page when the value is anything other than null. 
     const [apiResError, setApiResError] = useState(null)
     
+    // Monitors the current value selected by the user in the question amount dropdown
     const handleAmountChange = event => {
         setQuestionAmount(event.target.value);
     }
 
+    // Monitors the current value selected by the user in the question category dropdown
     const handleCategoryChange = event => {
         setQuestionCategory(event.target.value);
     }
 
+    // Monitors the current value selected by the user in the question difficulty dropdown
     const handleDifficultyChange = event => {
         setQuestionDifficulty(event.target.value);
     }
 
+    // Use the values selected by the user to send a request to the API that uses these same values as search parameters 
     const handleSubmit = event => {
         event.preventDefault();
-
-        // setting the baseline parameters for the axios params object.
+        // Set the baseline parameters for the axios params object.
         const params = {
             amount: questionAmount,
             category: questionCategory,
@@ -40,7 +46,7 @@ const InputForm = props => {
             // type: questionType
         }
 
-        // function that selectively deletes key/value pairs from the axios params object if the user leaves any of the non-required fields empty. 
+        // Selectively delete key/value pairs from the axios params object if the user leaves any of the non-required fields empty. 
         const deleteParams = () => {
             if (questionCategory === '') {
                 delete params.category
@@ -53,6 +59,7 @@ const InputForm = props => {
             // }
         }
 
+        // Delete any params that were left empty by the user because they didn't select an option from the dropdown menu
         deleteParams()
 
         axios({
@@ -62,14 +69,16 @@ const InputForm = props => {
             params: params
 
         }).then((response) => {
-        // Catch API network errors and throw to error message - OR proceed with sending form data to state
+            // Catch API network errors and throw to error message - OR proceed with sending form data to state
             if (response.status < 200 && response.status < 299) {
                 throw Error('error message')
             }
             setQuestionArray(response.data.results);
+            // Reset the dropdown menus to their default option
             setQuestionCategory(null);
             setQuestionAmount(null);
             setQuestionDifficulty(null);
+            // By setting it to false the game initiates and is no longer on standby waiting for the user 
             setStartNewGame(false);
         })
         .catch(error => {
@@ -78,6 +87,7 @@ const InputForm = props => {
         });
 
     }
+
     if (apiResError) {
         return(
             <div>
@@ -97,14 +107,14 @@ const InputForm = props => {
                     handleCategoryChange={handleCategoryChange}
                     apiResError={apiResError}
                     setApiResError={setApiResError}
-                    />
+                />
                 <label htmlFor="numberOfQuestions" className="sr-only">Question Amounts</label>
                 <select 
                     required 
                     name="numberOfQuestions" 
                     id="numberOfQuestions"
                     onChange={handleAmountChange}
-                    >
+                >
                     <option value="">Select number of questions</option>
                     <option value="5">5</option>
                     <option value="10">10</option>
@@ -122,7 +132,7 @@ const InputForm = props => {
                     name="questionDifficulty" 
                     id="questionDifficulty"
                     onChange={handleDifficultyChange}
-                    >
+                >
                     <option value="">Select difficulty</option>
                     <option value="easy">Easy</option>
                     <option value="medium">Medium</option>

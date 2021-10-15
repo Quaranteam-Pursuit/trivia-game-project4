@@ -7,12 +7,14 @@ import Footer from './components/Footer';
 import SavedGames from './components/SavedGames'
 
 function App() {
-  const [ startNewGame, setStartNewGame ] = useState(true);
-  const [ questionArray, setQuestionArray ] = useState([]);
-  const [ gameSaved, setGameSaved ] = useState(false);
-  const [ savedQuestions, setSavedQuestions ] = useState([]);
-  const [ loadingGame, setLoadingGame ] = useState(false);
+  // All values that are stored within state that determine what interface renders to the page
+  const [ startNewGame, setStartNewGame ] = useState(true); // Determines whether the user is starting a new game
+  const [ questionArray, setQuestionArray ] = useState([]); // Stores an array of all the questions returned by the API after a search query is sent, one of two variables that populates the trivia game component
+  const [ gameSaved, setGameSaved ] = useState(false); // Determines whether the current game is saved
+  const [ savedQuestions, setSavedQuestions ] = useState([]); // Stores an array of all the questions returned by the realtime database based on the game selected by the user in the saved games route, one of two variables that populates the trivia game component
+  const [ loadingGame, setLoadingGame ] = useState(false); // Determines whether a previous save state will be rendered to the page
 
+  // Handles allowing the user to start a new game by clicking on the link this event is attached to
   const handleReturn = () => {
     setLoadingGame(false);
     setStartNewGame(true);
@@ -51,6 +53,7 @@ function App() {
                   /> :
                   <TriviaGame 
                     gameSaved={gameSaved}
+                    // Conditionally populates the triviaGame component with either an array of questions from the API or realtime database depending on whether the loadingGame state value is true
                     questionArray={loadingGame ? savedQuestions : questionArray}
                     setGameSaved={setGameSaved}
                   />
