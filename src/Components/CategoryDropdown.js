@@ -21,7 +21,6 @@ const CategoryDropdown = props => {
         })
         .catch(error => {
             setApiResError(error.message)
-            console.log(error.message)
         })
     },[setApiResError] );
             
@@ -34,24 +33,22 @@ const CategoryDropdown = props => {
         if (apiResError === null) {
                 return (
                     <div className="categoryDropdown">
-                    
-                    <label htmlFor="categorySelect"></label>
-                    <select name="categorySelect" id="categorySelect" onChange={handleCategoryChange}>
-                        <option value="">Please select a category</option>
-                        {
-                            categories.map( (individualCat) => {
-                                return(
-                                    <option 
-                                    key={individualCat.id}
-                                    value={individualCat.id}
-                                    >
-                                        {individualCat.name}
-                                    </option>
-                                )
-                            })
-                        }
-                    </select>
-                </div>
+                        <select name="categorySelect" id="categorySelect" onChange={handleCategoryChange}>
+                            <option value="">Please select a category</option>
+                            {
+                                categories.map( (individualCat) => {
+                                    return(
+                                        <option 
+                                        key={individualCat.id}
+                                        value={individualCat.id}
+                                        >
+                                            {individualCat.name}
+                                        </option>
+                                    )
+                                })
+                            }
+                        </select>
+                    </div>
                 )
             }
     // )
