@@ -178,7 +178,7 @@ const TriviaGame = props => {
                             <p>{category}</p>
                         </div>
                         <div className="questionDifficulty">
-                            <p>{difficulty}</p>
+                            <p>Difficulty: {difficulty}</p>
                         </div>
                         <div className="visualFeedback">
                             {
@@ -190,8 +190,9 @@ const TriviaGame = props => {
                             }
                         </div>
                         <div className="currentPosition">
-                            <p>Question {userPosition}/{gameLength}</p>
+                            <p>Question: {userPosition}/{gameLength}</p>
                             <span className="answerHistory"></span>
+                    </div>
                         </div>
                         <div className="questionText">
                             <p dangerouslySetInnerHTML={{__html: question}}></p>
@@ -230,7 +231,7 @@ const TriviaGame = props => {
                                 }
                             </fieldset>
                         </form>
-                        <div>
+                        <div className="resultButtons">
                             {
                             !gameSaved ?
                             <button onClick={handleGameSave}>Save Game</button> :
@@ -253,6 +254,7 @@ const TriviaGame = props => {
                                     }
                                     }>Finish game!</button> 
                                     : <button
+                                        className="revealButton"
                                         // Each time the button is clicked a new question object will be stored into state to access and render its contents to the page 
                                         onClick={() => {
                                             handleCurrentQuestion(questionArray);
@@ -264,7 +266,6 @@ const TriviaGame = props => {
                                     >Reveal Question {userPosition}</button>
                                 }
                         </div>
-                    </div>
                 </div>
             </div>
         )

@@ -34,7 +34,7 @@ function App() {
           </nav>
         </header>
         <main>
-          <Link to='/SavedGames'>Saved Games</Link>
+          <Link to='/SavedGames' className="savedGamesLink">Saved Games</Link>
           <Route path="/savedgames">
             <SavedGames
               setSavedQuestions={setSavedQuestions}

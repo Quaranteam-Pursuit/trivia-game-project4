@@ -23,10 +23,6 @@ a {
   padding: 0; 
 }
 
-ul { 
-  list-style: none; 
-}
-
 a { 
   color: inherit; 
   text-decoration: none; 
@@ -146,10 +142,10 @@ li, p, label {
   border: 1px solid #FFB0C6;
   height: 50px;
   margin-bottom: 2rem;
-  padding: 1rem 0.5rem 3rem 0.5rem;
+  padding: 1rem 0.5rem 2.5rem 0.5rem;
 }
 
-ul {
+.answerForm {
   text-align: left;
   -webkit-box-shadow: 1px 1px 4px 14px rgba(175,237,255,0.66); 
   box-shadow: 1px 1px 4px 14px rgba(175,237,255,0.66);
@@ -160,11 +156,7 @@ span {
   margin-right: 1rem;
 }
 
-li {
-  margin-left: 1rem;
-}
-
-ul, .questionText {
+.answerForm, .questionText {
   margin-bottom: 2rem;
 }
 
@@ -179,6 +171,7 @@ ul, .questionText {
 .allAnswers {
   margin: 0 auto;
 }
+
 .answerOptions {
   display: flex;
   flex-direction: column;
@@ -242,6 +235,15 @@ ul, .questionText {
   color: #008793;
 }
 
+.resultButtons {
+  display: flex;
+  justify-content: space-evenly;
+}
+
+.revealButton {
+  margin-left: 2.5rem;
+}
+  
 fieldset {
   border: none;
 }
