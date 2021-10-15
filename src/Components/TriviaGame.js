@@ -118,17 +118,22 @@ const TriviaGame = props => {
         setUserChoice(currentSelection); // No. 4c - Stores user's current selected answer
     }
 
+    const[numOfCorrectAnswers, setNumOfCorrectAnswers] =useState(0);
+
     // No. 6c - Compares the value of the targeted element with the correct answer value from the question object
     const handleValidation = userChoice => {
         if (userChoice === `${correct_answer}`) { // No. 6d - Compare user's selection with destructured correct answer value
-            setAnsweredCorrectly(true);  // No. 6e - Temporarily store whether they answered correctly 
-
+            setAnsweredCorrectly(true) // No. 6e - Temporarily store whether they answered correctly 
+            setNumOfCorrectAnswers(numOfCorrectAnswers+1)
         } 
         if (userChoice !== `${correct_answer}`) { // No. 6d - Compare user's selection with destructured correct answer value
             setAnsweredCorrectly(false); // No. 6e - Temporarily store whether they answered incorrectly
+           
         }
     }
-    
+
+
+    console.log(numOfCorrectAnswers); 
         // save the games to firebase only one time and hide the button after the save happened
     const handleGameSave = () => {
         push(dbRef, questionArray);
@@ -142,10 +147,11 @@ const TriviaGame = props => {
     }
 
     const [gameFinished, setGameFinished] = useState(false)
-
+    
     const endGameHandler = () => {
         if (questionArray.length === 0) {
             setGameFinished(true)
+            
         }
     }
 
@@ -174,8 +180,8 @@ const TriviaGame = props => {
                                 answeredCorrectly === null ?
                                     <></> :
                                     answeredCorrectly ?
-                                    <FaCheckCircle /> :
-                                    <FaTimesCircle />
+                                    <FaCheckCircle/> :
+                                    <FaTimesCircle/>
                             }
                         </div>
                         <div className="currentPosition">
@@ -188,38 +194,38 @@ const TriviaGame = props => {
                         <form className="answerForm">
                             <div className="allAnswers">
                                 {
-                                    myComponent.randomizedOrder !== undefined ?
-                                        // Map through all of the multiple choice answers after they have been randomly order and create an li element for each
-                                        myComponent.randomizedOrder.map((value, index) => {
-                                            return (
-                                                <div
-                                                    key={index}
-                                                    className="answerContainer"
-                                                >
-                                                    {/* <span className="iconContainer">
-                                                        <FaRegCircle />
-                                                    </span> */}
-                                                    <input
-                                                        type="radio"
-                                                        className="answerInput"
-                                                        id={index}
-                                                        name="answerOption"
-                                                        onClick={event => handleSelection(event)}
-                                                    >   
-                                                    </input>
-                                                    <label
-                                                        htmlFor={index}
-                                                        className="answerLabel"
-                                                        tabIndex="0"
+                                        myComponent.randomizedOrder !== undefined ?
+                                            // Map through all of the multiple choice answers after they have been randomly order and create an li element for each
+                                            myComponent.randomizedOrder.map((value, index) => {
+                                                return (
+                                                    <div
+                                                        key={index}
+                                                        className="answerContainer"
                                                     >
-                                                        {value}
-                                                    </label>
-                                                    {/* <div className="radioBox">
-                                                    </div> */}
-                                                </div>
-                                            )
-                                        }) :
-                                        null
+                                                        {/* <span className="iconContainer">
+                                                            <FaRegCircle />
+                                                        </span> */}
+                                                        <input
+                                                            type="radio"
+                                                            className="answerInput"
+                                                            id={index}
+                                                            name="answerOption"
+                                                            onClick={event => handleSelection(event)}
+                                                        >   
+                                                        </input>
+                                                        <label
+                                                            htmlFor={index}
+                                                            className="answerLabel"
+                                                            tabIndex="0"
+                                                        >
+                                                            {value}
+                                                        </label>
+                                                        {/* <div className="radioBox">
+                                                        </div> */}
+                                                    </div>
+                                                )
+                                            }) :
+                                            null
                                 }
                             </div>
                         </form>
@@ -237,13 +243,14 @@ const TriviaGame = props => {
                                             handleValidation(userChoice);
                                             incrementPosition();
                                             endGameHandler();
+                                           
                                         }}
                                     >Submit Answer</button> 
                                     : gameFinished
-                                    ? <button 
-                                    >
-                                    Finish game!
-                                    </button> 
+                                    ? <button onClick={()=> {
+                                        alert(` you got ${numOfCorrectAnswers} correct answers`)
+                                    }
+                                    }>Finish game!</button> 
                                     : <button
                                         // Each time the button is clicked a new question object will be stored into state to access and render its contents to the page 
                                         onClick={() => {
@@ -252,9 +259,7 @@ const TriviaGame = props => {
                                             setAnsweredCorrectly(null);
                                         }}
                                     >Reveal Question {userPosition}</button>
-                                    
-                                    
-                            }
+                                }
                         </div>
                     </div>
                 </div>
