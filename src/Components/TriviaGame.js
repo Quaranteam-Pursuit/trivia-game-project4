@@ -196,9 +196,7 @@ const TriviaGame = props => {
                                                     key={index}
                                                     className="answerContainer"
                                                 >
-                                                    {/* <span className="iconContainer">
-                                                        <FaRegCircle />
-                                                    </span> */}
+
                                                     <input
                                                         type="radio"
                                                         className="answerInput"
@@ -214,8 +212,6 @@ const TriviaGame = props => {
                                                     >
                                                         {value}
                                                     </label>
-                                                    {/* <div className="radioBox">
-                                                    </div> */}
                                                 </div>
                                             )
                                         }) :
@@ -225,9 +221,9 @@ const TriviaGame = props => {
                         </form>
                         <div>
                             {
-                           !gameSaved ?
-                           <button onClick={handleGameSave}>Save Game</button> :
-                           null
+                            !gameSaved ?
+                            <button onClick={handleGameSave}>Save Game</button> :
+                            null
                             }
                             {
                                 validatingAnswer 

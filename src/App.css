@@ -186,7 +186,7 @@ ul, .questionText {
   width: 300px;
   margin: 0 auto;
 }
-.answerInput {
+/* .answerInput {
   visibility: hidden;
   position: absolute;
 }
@@ -227,6 +227,10 @@ ul, .questionText {
 	-webkit-transition: background 0.25s linear;
 }
 
+.answerLabel::after {
+
+}
+
 .answerInput:checked ~ .answerLabel::before {
   background-color: #00bf72;
 }
@@ -234,4 +238,4 @@ ul, .questionText {
 .answerInput:checked ~ label {
   color: #008793;
 }
-
+ */
