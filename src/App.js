@@ -29,7 +29,6 @@ function App() {
               to='/'
               onClick={handleReturn}
             >Home</Link>
-            <Link to='/SavedGames'>Saved Games</Link>
             <Link to='/'>Play</Link>
           </nav>
         </header>
