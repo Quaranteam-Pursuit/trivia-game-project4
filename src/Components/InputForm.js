@@ -123,7 +123,7 @@ const InputForm = props => {
                     <option value="medium">Medium</option>
                     <option value="hard">Hard</option>
                 </select>
-                <button type="submit">Submit</button>
+                <button className="initialSubmit" type="submit">Submit</button>
             </form>
         )
     }

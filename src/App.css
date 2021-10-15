@@ -58,7 +58,13 @@ h1 {
   font-family: 'Merienda One', cursive;
   color: #9BD694; 
   margin-bottom: 2rem;
-  margin-top: 1rem;
+  margin-top: 2rem;
+}
+
+nav {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 2rem;
 }
 
 body{ 
@@ -71,13 +77,16 @@ main {
   margin-bottom: 1.5rem;
 }
 
-
-.App{
+.app {
   display: flex;
   flex-direction: column;
   justify-content: space-between;
   align-items: center;
   height: 100vh;
+}
+
+li, p, label {
+  margin-bottom: 1rem;
 }
 
 /* Landing page styling */
@@ -89,10 +98,11 @@ select {
   background-color: #AFEDFF;
   border: 1px solid #FFB0C6;
   font-family: 'Barlow', sans-serif;
+  cursor: pointer;
 }
 
 legend {
-  text-align: left;
+  text-align: center;
   font-size: 1.5rem;
   margin-bottom: 2rem;
 }
@@ -110,6 +120,8 @@ button {
   -webkit-box-shadow: 4px 1px 28px 12px rgba(255,176,198,0.66); 
   box-shadow: 4px 1px 28px 12px rgba(255,176,198,0.66);
   border: 1px solid #9BD694;
+  cursor: pointer;
+  border-radius: 10px;
 }
 
 button:hover, button:focus {
@@ -119,8 +131,25 @@ button:hover, button:focus {
   background: #FFB0C6;
 }
 
-option {
-  font-family: 'Barlow', sans-serif;
+.navLinks, .bottomHome {
+  width: 50%;
+  border-radius: 10px;
+  padding: 0.5rem;
+  border: 1px solid #FFB0C6;
+  margin-left: 0.3rem;
+  margin-right: 0.3rem;
+}
+
+.navLinks:hover, .navLinks:focus, .bottomHome:hover, .bottomHome:focus {
+  -webkit-transform: scale(1.1);
+  transform: scale(1.1);
+  transition: all 1s;
+  background: #FFB0C6;
+}
+
+select:hover, select:focus {
+  transition: all 0.5s;
+  background: #FFB0C6;
 }
 
 /* Result styling */
@@ -132,17 +161,22 @@ option {
   margin-bottom: 2rem;
 }
 
-li, p, label {
-  margin-bottom: 1rem;
+.correct {
+  color: green;
+}
+
+.incorrect {
+  color: red;
 }
 
 .resultHeader {
   display: flex;
   justify-content: space-between;
-  border: 1px solid #FFB0C6;
+  border: 2px solid #FFB0C6;
   height: 50px;
   margin-bottom: 2rem;
   padding: 1rem 0.5rem 2.5rem 0.5rem;
+  border-radius: 10px;
 }
 
 .answerForm {
@@ -158,10 +192,12 @@ span {
 
 .answerForm, .questionText {
   margin-bottom: 2rem;
+  border-radius: 10px;
 }
 
 .questionText {
   color: #9BD694;
+  font-weight: bold;
 }
 
 .questionDifficulty {
@@ -225,8 +261,6 @@ span {
 	-webkit-transition: background 0.25s linear;
 }
 
-
-
 .answerInput:checked ~ .answerLabel::before {
   background-color: #00bf72;
 }
@@ -237,7 +271,7 @@ span {
 
 .resultButtons {
   display: flex;
-  justify-content: space-evenly;
+  justify-content: space-between;
 }
 
 .revealButton {
@@ -246,4 +280,66 @@ span {
   
 fieldset {
   border: none;
+}
+
+.launchInterface {
+  background-color: #AFEDFF;
+  padding: 1rem;
+  border-radius: 10px;
+}
+
+/* Saved Games Styling Render */
+
+li {
+  list-style: none;
+}
+.savedGameText {
+  margin-bottom: 2rem;
+}
+
+ul {
+  padding: 1rem;
+  -webkit-box-shadow: 1px 1px 4px 14px rgba(175,237,255,0.66); 
+  box-shadow: 1px 1px 4px 14px rgba(175,237,255,0.66);
+  margin-bottom: 2rem;
+  border-radius: 10px;
+}
+
+.bottomHome {
+  margin: 0 auto;
+}
+
+/* Footer Styles */
+
+footer {
+  color: #9BD694;
+  font-weight: bold;
+  margin-top: 2rem;
+}
+
+.footerLink:focus, .footerLink:hover {
+  transition: all 0.5s;
+  background: #FFB0C6;
+  color: white;
+}
+
+/* Responsiveness */
+@media (max-width: 500px) {
+  form {
+    justify-content: center;
+    align-items: center;
+  }
+
+  select {
+    width: 80%;
+  }
+
+  .gameInterface {
+    margin: 0 auto;
+    width: 90%;
+  }
+
+  .initialSubmit {
+    width: 90%;
+  }
 }

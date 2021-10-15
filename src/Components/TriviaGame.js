@@ -136,9 +136,6 @@ const TriviaGame = props => {
            
         }
     }
-
-
-    console.log(numOfCorrectAnswers); 
         // save the games to firebase only one time and hide the button after the save happened
     const handleGameSave = () => {
         push(dbRef, questionArray);
@@ -185,8 +182,8 @@ const TriviaGame = props => {
                                 answeredCorrectly === null ?
                                     <></> :
                                     answeredCorrectly ?
-                                    <FaCheckCircle/> :
-                                    <FaTimesCircle/>
+                                    <FaCheckCircle className="correct"/> :
+                                    <FaTimesCircle className="incorrect"/>
                             }
                         </div>
                         <div className="currentPosition">
@@ -250,7 +247,7 @@ const TriviaGame = props => {
                                     >Submit Answer</button> 
                                     : gameFinished
                                     ? <button onClick={()=> {
-                                        alert(` you got ${numOfCorrectAnswers} correct answers`)
+                                        alert(` You got ${numOfCorrectAnswers} correct answers. Try another category and play again!`)
                                     }
                                     }>Finish game!</button> 
                                     : <button

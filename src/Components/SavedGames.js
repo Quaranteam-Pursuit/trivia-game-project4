@@ -38,6 +38,7 @@ const SavedGames = (props) => {
     
     return(
         <>
+            <p className="savedGameText">Choose a previous saved game from below and then click play.</p>
             <ul>
                 {
                     showGames.map((individualGame, index)=>{
@@ -60,7 +61,7 @@ const SavedGames = (props) => {
                 }
             </ul>
             <Link exact to="/">
-                <p>Home</p>
+                <p className="bottomHome">Home</p>
             </Link>
         </>
 
