@@ -115,15 +115,7 @@ const TriviaGame = props => {
             setUserPosition(positionIndex + 1); // No. 7d - Update their position in state 
         }
     }
-    
-    // Immediately call shuffle function to automatically sort the answers once the question array populates with values 
-    // if (validatingAnswer) { //No. 5a - When question is revealed shuffle the answer's positions
-    //     // Encountered a bug where the answers would be randomly sorted with each button click, now it hides all answer after submitting
-    //     console.log(validatingAnswer)
-    //     console.log('inside V A')
-    //     shuffleOptions(correct_answer, incorrect_answers);
-    // }
-    
+  
 
     // No. 4b - Sets the user choice state variable to the last selected option
     const handleSelection = event => {
@@ -131,17 +123,22 @@ const TriviaGame = props => {
         setUserChoice(currentSelection); // No. 4c - Stores user's current selected answer
     }
 
+    const[numOfCorrectAnswers, setNumOfCorrectAnswers] =useState(0);
+
     // No. 6c - Compares the value of the targeted element with the correct answer value from the question object
     const handleValidation = userChoice => {
         if (userChoice === `${correct_answer}`) { // No. 6d - Compare user's selection with destructured correct answer value
-            setAnsweredCorrectly(true);  // No. 6e - Temporarily store whether they answered correctly 
-
+            setAnsweredCorrectly(true) // No. 6e - Temporarily store whether they answered correctly 
+            setNumOfCorrectAnswers(numOfCorrectAnswers+1)
         } 
         if (userChoice !== `${correct_answer}`) { // No. 6d - Compare user's selection with destructured correct answer value
             setAnsweredCorrectly(false); // No. 6e - Temporarily store whether they answered incorrectly
+           
         }
     }
-    
+
+
+    console.log(numOfCorrectAnswers); 
         // save the games to firebase only one time and hide the button after the save happened
     const handleGameSave = () => {
         push(dbRef, questionArray);
@@ -155,10 +152,11 @@ const TriviaGame = props => {
     }
 
     const [gameFinished, setGameFinished] = useState(false)
-
+    
     const endGameHandler = () => {
         if (questionArray.length === 0) {
             setGameFinished(true)
+            
         }
     }
 
@@ -187,8 +185,8 @@ const TriviaGame = props => {
                                 answeredCorrectly === null ?
                                     <></> :
                                     answeredCorrectly ?
-                                    <FaCheckCircle /> :
-                                    <FaTimesCircle />
+                                    <FaCheckCircle/> :
+                                    <FaTimesCircle/>
                             }
                         </div>
                         <div className="currentPosition">
@@ -246,13 +244,14 @@ const TriviaGame = props => {
                                             handleValidation(userChoice);
                                             incrementPosition();
                                             endGameHandler();
+                                           
                                         }}
                                     >Submit Answer</button> 
                                     : gameFinished
-                                    ? <button 
-                                    >
-                                    Finish game!
-                                    </button> 
+                                    ? <button onClick={()=> {
+                                        alert(` you got ${numOfCorrectAnswers} correct answers`)
+                                    }
+                                    }>Finish game!</button> 
                                     : <button
                                         // Each time the button is clicked a new question object will be stored into state to access and render its contents to the page 
                                         onClick={() => {
@@ -263,9 +262,7 @@ const TriviaGame = props => {
                                             setUserChoice(null)
                                         }}
                                     >Reveal Question {userPosition}</button>
-                                    
-                                    
-                            }
+                                }
                         </div>
                     </div>
                 </div>
