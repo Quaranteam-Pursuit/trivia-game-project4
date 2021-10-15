@@ -14,14 +14,24 @@ function App() {
   const [ savedQuestions, setSavedQuestions ] = useState([]);
   const [ loadingGame, setLoadingGame ] = useState(false);
 
+  const handleReturn = () => {
+    setLoadingGame(false);
+    setStartNewGame(true);
+  }
 
   return (
     <Router>
       <div className="App">
         <header>
-          <Link to="/">
-            <h1>Quarantine Pursuit</h1>
-          </Link>
+          <h1>Quarantine Pursuit</h1>
+          <nav>
+            <Link 
+              to='/'
+              onClick={handleReturn}
+            >Home</Link>
+            <Link to='/SavedGames'>Saved Games</Link>
+            <Link to='/'>Play</Link>
+          </nav>
         </header>
         <main>
           <Link to='/SavedGames'>Saved Games</Link>
