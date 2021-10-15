@@ -2,7 +2,6 @@ import {  useState } from 'react';
 import { FaCheckCircle, FaTimesCircle } from 'react-icons/fa';
 import firebase from '../firebase';
 import { getDatabase, ref, push } from 'firebase/database'; 
-import {Link} from 'react-router-dom'
 
 const TriviaGame = props => {
     //creating reference to firebase realtime database
@@ -134,17 +133,7 @@ const TriviaGame = props => {
     }
 
 
-    console.log(numOfCorrectAnswers);
-
-    const finishedGameMessage = () => {
-        return(
-            <div>
-                <p>you won </p>
-            </div>
-        )
-    }
-
-    
+    console.log(numOfCorrectAnswers); 
         // save the games to firebase only one time and hide the button after the save happened
     const handleGameSave = () => {
         push(dbRef, questionArray);
@@ -191,8 +180,8 @@ const TriviaGame = props => {
                                 answeredCorrectly === null ?
                                     <></> :
                                     answeredCorrectly ?
-                                    <p>correct</p> :
-                                    <p>wrong </p>
+                                    <FaCheckCircle/> :
+                                    <FaTimesCircle/>
                             }
                         </div>
                         <div className="currentPosition">
