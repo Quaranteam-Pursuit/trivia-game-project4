@@ -222,7 +222,7 @@ span {
 
 .answerInput:focus + label::before {
   box-shadow: 0 0px 8px var(--brandPrimary);
-  border: 5px solid black;
+  border: 2px solid black;
 }
 
 .answerLabel {
