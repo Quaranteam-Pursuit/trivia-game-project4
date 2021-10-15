@@ -29,11 +29,12 @@ function App() {
               to='/'
               onClick={handleReturn}
             >Home</Link>
+            <Link to='/SavedGames'>Saved Games</Link>
             <Link to='/'>Play</Link>
           </nav>
         </header>
         <main>
-          <Link to='/SavedGames' className="savedGamesLink">Saved Games</Link>
+          
           <Route path="/savedgames">
             <SavedGames
               setSavedQuestions={setSavedQuestions}
