@@ -196,7 +196,7 @@ span {
 }
 
 .questionText {
-  color: #9BD694;
+  color: #000;
   font-weight: bold;
 }
 
@@ -312,7 +312,7 @@ ul {
 /* Footer Styles */
 
 footer {
-  color: #9BD694;
+  color: #000;
   font-weight: bold;
   margin-top: 2rem;
 }
