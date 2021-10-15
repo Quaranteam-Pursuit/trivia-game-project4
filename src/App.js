@@ -1,10 +1,10 @@
 import './App.css';
 import { useState } from 'react';
 import { BrowserRouter as Router, Route,Link } from 'react-router-dom';
-import InputForm from './components/InputForm';
-import TriviaGame from './components/TriviaGame';
-import Footer from './components/Footer';
-import SavedGames from './components/SavedGames'
+import InputForm from './Components/InputForm';
+import TriviaGame from './Components/TriviaGame';
+import Footer from './Components/Footer';
+import SavedGames from './Components/SavedGames'
 
 function App() {
   // All values that are stored within state that determine what interface renders to the page
