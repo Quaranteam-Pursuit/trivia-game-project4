@@ -1,7 +1,6 @@
 import { useState } from 'react';
 import CategoryDropdown from './CategoryDropdown';
 import axios from 'axios'
-// import ErrorHandler from './ErrorHandler';
 
 const InputForm = props => {
     const { setQuestionArray, setStartNewGame } = props;
@@ -11,8 +10,6 @@ const InputForm = props => {
     const [questionCategory, setQuestionCategory ] = useState("");
 
     const [ questionDifficulty, setQuestionDifficulty ] = useState("");
-
-    // const [ questionType, setQuestionType ] = useState("");
 
     // State to hold the response status for API error handling. Default value is null so that the errors can print to page when the value is anything other than null. 
     const [apiResError, setApiResError] = useState(null)
@@ -37,7 +34,6 @@ const InputForm = props => {
             amount: questionAmount,
             category: questionCategory,
             difficulty: questionDifficulty,
-            // type: questionType
         }
 
         // function that selectively deletes key/value pairs from the axios params object if the user leaves any of the non-required fields empty. 
@@ -48,9 +44,6 @@ const InputForm = props => {
             if (questionDifficulty === '') {
                 delete params.difficulty
             }
-            // if (typeDropdown.value === '') {
-            //     delete params.type
-            // }
         }
 
         deleteParams()
@@ -100,7 +93,6 @@ const InputForm = props => {
                     apiResError={apiResError}
                     setApiResError={setApiResError}
                     />
-                <label htmlFor="numberOfQuestions" className="sr-only">Question Amounts</label>
                 <label>Number of Questions</label>
                 <select 
                     required 
@@ -120,7 +112,11 @@ const InputForm = props => {
                     <option value="45">45</option>
                     <option value="50">50</option>
                 </select>
-                <label htmlFor="questionDifficulty" className="sr-only">Question Difficulty</label>
+                <CategoryDropdown
+                    handleCategoryChange={handleCategoryChange}
+                    apiResError={apiResError}
+                    setApiResError={setApiResError}
+                />
                 <label>Difficulty</label>
                 <select 
                     name="questionDifficulty" 
@@ -132,10 +128,6 @@ const InputForm = props => {
                     <option value="medium">Medium</option>
                     <option value="hard">Hard</option>
                 </select>
-                {/* <label htmlFor="questionType" className="sr-only">Question Type</label>
-                <select require name="questionType" id="questionType">
-                <option value="multiple">Multiple Choice</option>
-                </select> */}
                 <button type="submit">Submit</button>
             </form>
         )

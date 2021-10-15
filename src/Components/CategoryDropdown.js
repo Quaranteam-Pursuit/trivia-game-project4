@@ -8,7 +8,6 @@ const CategoryDropdown = props => {
     // State to hold the categories array
     const [categories, setCategories] = useState([])
 
-
     // Call the categories endpoint & set state
     useEffect(() => {
         axios({
@@ -37,7 +36,7 @@ const CategoryDropdown = props => {
                     <div className="categoryDropdown">
                     
                     <label htmlFor="categorySelect"></label>
-                    <select required name="categorySelect" id="categorySelect" onChange={handleCategoryChange}>
+                    <select name="categorySelect" id="categorySelect" onChange={handleCategoryChange}>
                         <option value="">Please select a category</option>
                         {
                             categories.map( (individualCat) => {
