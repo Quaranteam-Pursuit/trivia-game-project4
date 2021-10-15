@@ -36,7 +36,7 @@ const CategoryDropdown = props => {
                     <div className="categoryDropdown">
                     
                     <label htmlFor="categorySelect"></label>
-                    <select required name="categorySelect" id="categorySelect" onChange={handleCategoryChange}>
+                    <select name="categorySelect" id="categorySelect" onChange={handleCategoryChange}>
                         <option value="">Please select a category</option>
                         {
                             categories.map( (individualCat) => {
